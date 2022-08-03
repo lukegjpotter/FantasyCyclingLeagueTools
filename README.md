@@ -24,3 +24,5 @@ none
 ## Build, Run and Test
 
 PostMan Collection: [JSON Format](https://www.getpostman.com/collections/6f8d705afefeb67c6aa8).
+
+Swagger UI is Enabled: [Localhost](http://localhost:8080/swagger-ui/index.html#/).
