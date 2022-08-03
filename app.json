@@ -1,0 +1,24 @@
+{
+  "name": "Fantasy Cycling League Tools",
+  "description": "A suite of Spring Boot REST APIs for a Fantasy Cycling League.",
+  "repository": "https://github.com/lukegjpotter/FantasyCyclingLeagueTools",
+  "logo": "https://www.w3.org/html/logo/badge/html5-badge-h-solo.png",
+  "website": "https://lukegjpotter.com/",
+  "keywords": [
+    "java",
+    "spring-boot",
+    "selenium"
+  ],
+  "env": {
+    "ROADCC_USERNAME": "yourusername",
+    "ROADCC_PASSWORD": "yourpassword"
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    }
+  ],
+  "addons": [
+    "papertrail"
+  ]
+}
