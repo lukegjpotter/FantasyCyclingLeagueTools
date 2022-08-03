@@ -129,3 +129,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+setEnvironmentalVariables.bat
+setEnvironmentalVariables.sh
