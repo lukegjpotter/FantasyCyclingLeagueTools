@@ -68,6 +68,11 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
+.classpath
+.project
+.sts4-cache
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
 # Code Recommenders
 .recommenders/
@@ -85,14 +90,16 @@ local.properties
 # Typically, this file would be tracked if it contains build/dependency configurations:
 #.project
 
-### Example user template template
-### Example user template
 
-# IntelliJ project files
+### IntelliJ IDEA ###
 .idea
+*.iws
 *.iml
-out
-gen
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
 ### Gradle template
 .gradle
 **/build/
@@ -109,3 +116,16 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+HELP.md
+.DS_Store
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
