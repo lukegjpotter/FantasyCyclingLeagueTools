@@ -1,6 +1,6 @@
-package com.lukegjpotter.tools.fantasycyclingleaguetools.service;
+package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.service;
 
-import com.lukegjpotter.tools.fantasycyclingleaguetools.componentsfortransferservice.TransferSeleniumComponent;
+import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.component.TransferSeleniumComponent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

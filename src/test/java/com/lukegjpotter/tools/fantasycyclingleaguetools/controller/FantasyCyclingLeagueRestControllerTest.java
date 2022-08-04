@@ -1,6 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.controller;
 
-import com.lukegjpotter.tools.fantasycyclingleaguetools.service.FantasyCyclingLeagueTransferService;
+import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.service.FantasyCyclingLeagueTransferService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ class FantasyCyclingLeagueRestControllerTest {
     @Test
     void getStandings() {
         String expected = "Not Implemented\n";
-        String actual = restController.getTeams(0);
+        String actual = restController.getStandings();
 
         assertEquals(expected, actual, "Class is implemented.");
     }
