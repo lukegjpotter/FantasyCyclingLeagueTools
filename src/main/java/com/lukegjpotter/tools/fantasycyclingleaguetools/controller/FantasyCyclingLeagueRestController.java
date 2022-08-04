@@ -19,11 +19,11 @@ public class FantasyCyclingLeagueRestController {
 
     @GetMapping("standings")
     public String getStandings() {
-        return "Not Implemented";
+        return "Not Implemented\n";
     }
 
     @GetMapping("teams")
     public String getTeams(@PathVariable int numberOfTeams) {
-        return "Not Implemented";
+        return "Not Implemented\n";
     }
 }

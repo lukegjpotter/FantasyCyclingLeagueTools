@@ -39,7 +39,7 @@ class FantasyCyclingLeagueRestControllerTest {
 
     @Test
     void getStandings() {
-        String expected = "Not Implemented";
+        String expected = "Not Implemented\n";
         String actual = restController.getTeams(0);
 
         assertEquals(expected, actual, "Class is implemented.");
@@ -47,7 +47,7 @@ class FantasyCyclingLeagueRestControllerTest {
 
     @Test
     void getTeams() {
-        String expected = "Not Implemented";
+        String expected = "Not Implemented\n";
         String actual = restController.getTeams(0);
 
         assertEquals(expected, actual, "Class is implemented.");

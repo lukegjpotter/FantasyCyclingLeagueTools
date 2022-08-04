@@ -9,5 +9,4 @@ class FantasyCyclingLeagueToolsApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
