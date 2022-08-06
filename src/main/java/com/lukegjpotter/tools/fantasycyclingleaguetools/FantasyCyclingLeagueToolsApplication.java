@@ -1,5 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,6 @@ public class FantasyCyclingLeagueToolsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FantasyCyclingLeagueToolsApplication.class, args);
+        WebDriverManager.chromedriver().setup();
     }
-
 }

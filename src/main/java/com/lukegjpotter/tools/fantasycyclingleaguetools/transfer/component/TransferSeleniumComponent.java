@@ -1,6 +1,5 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.component;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,7 +26,6 @@ public class TransferSeleniumComponent {
 
     public String getTransfers() {
 
-        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         WebDriver transfersWebDriver = new ChromeDriver(options);
 
@@ -40,26 +38,43 @@ public class TransferSeleniumComponent {
 
         // Select Competition - Giro, Tour, Vuelta.
         logger.info("Selecting League");
-        transfersWebDriver.findElements(By.className("joinedcomp")).get(0).findElement(By.className("joinbutton")).click();
+
+        WebElement competitionWebElement = transfersWebDriver.findElements(By.className("joinedcomp")).get(0);
+        boolean isRaceOver = competitionWebElement.findElement(By.className("ribbon-grey")).getText().trim().equals("ENDED");
+        competitionWebElement.findElement(By.className("joinbutton")).click();
 
         // Determine the Latest Stage
         logger.info("Determining Latest Stage");
+        /* The touchcarousel-item element will return the three displayed stages.
+         * List size will be 21, but the other 18 entries will be blank.
+         * This will not be an issue whilst the race is ongoing, as it will load the previous stage and the next two.
+         * So all the content we want will be loaded.
+         * But if the competition is finished, then we'll need to press the button to scroll the carousel. */
         List<WebElement> stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
 
-        String todaysDateFormatted = new SimpleDateFormat("EEEEE dd MMMMM", new Locale("en", "UK")).format(new Date());
+        if (isRaceOver) {
+            // Click the right arrow the stagesCarouselList.size, number of times to get to the latest stages.
+            WebElement rightButton = transfersWebDriver.findElement(By.cssSelector(".arrow-holder.right"));
+            for (int i = 0; i < stagesCarouselList.size(); i++) {
+                rightButton.click();
+            }
+        }
+
+        stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
+
+        String todaysDate = new SimpleDateFormat("EEEEE dd MMMMM", new Locale("en", "UK")).format(new Date());
         String todaysStageNumber = "";
 
         for (WebElement stageElement : stagesCarouselList) {
-            String dateAndDistance = stageElement.findElement(By.className("scr-details")).getText().trim().split("\n")[0];
-            if (dateAndDistance.equals(todaysDateFormatted)) {
-                todaysStageNumber = stageElement.findElement(By.className("scr-stagemarker")).getText().trim();
+            String stageDate = stageElement.findElement(By.className("scr-details")).getText().trim().split("\n")[0];
+            todaysStageNumber = stageElement.findElement(By.className("scr-stagemarker")).getText().trim();
+
+            if (stageDate.equals(todaysDate)) {
                 break;
             }
         }
 
-        if (todaysStageNumber.isEmpty()) {
-            todaysStageNumber = "Stage 21";
-        }
+        todaysStageNumber = todaysStageNumber.toLowerCase();
         logger.info("Latest Stage is " + todaysStageNumber);
 
         // View League
