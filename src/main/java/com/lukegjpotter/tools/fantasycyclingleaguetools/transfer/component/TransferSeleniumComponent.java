@@ -83,9 +83,9 @@ public class TransferSeleniumComponent {
 
         // Loop - Open Each User
         logger.info("Viewing User Profiles");
+        // TODO this is weak, and needs to accuratly target the user names, as opposed to the scores.
         List<WebElement> usersProfiles = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a"));
         StringBuilder output = new StringBuilder("Transfers: Out -> In\n");
-
         for (WebElement userProfile : usersProfiles) {
             userProfile.click();
             String username = transfersWebDriver.findElement(By.className("gamewindow-title")).getText().trim().split(":")[1].trim();
@@ -94,16 +94,17 @@ public class TransferSeleniumComponent {
 
             // Expand Transfers
             transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.tagName("a")).click();
-            List<WebElement> transferTableRows = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
-            transferTableRows.remove(0); // Remove the Table Headers.
+            List<WebElement> transferTableRows = transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.className("leagues")).findElements(By.tagName("tr"));
+
+            // Remove the Table Headers.
+            transferTableRows.remove(0);
 
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
-
                 if (stage.contains(todaysStageNumber)) {
-                    String riderOut = transferFields.get(3).getText().trim();
-                    String riderIn = transferFields.get(2).getText().trim();
+                    String riderOut = transferFields.get(4).getText().trim();
+                    String riderIn = transferFields.get(3).getText().trim();
                     output.append(riderOut).append(" -> ").append(riderIn).append("\n");
                 } else {
                     // End Loop, as we're no longer on the Today's Stage.
@@ -111,11 +112,12 @@ public class TransferSeleniumComponent {
                     break;
                 }
             }
+            break; //todo remove this.
         }
 
         // Clean Up
         transfersWebDriver.quit();
 
-        return output.toString().trim();
+        return output.toString();
     }
 }
