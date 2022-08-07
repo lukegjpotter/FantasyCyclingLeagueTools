@@ -83,11 +83,12 @@ public class TransferSeleniumComponent {
 
         // Loop - Open Each User
         logger.info("Viewing User Profiles");
-        // TODO this is weak, and needs to accuratly target the user names, as opposed to the scores.
-        List<WebElement> usersProfiles = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a"));
         StringBuilder output = new StringBuilder("Transfers: Out -> In\n");
-        for (WebElement userProfile : usersProfiles) {
-            userProfile.click();
+        List<WebElement> usersProfiles = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a"));
+        // Delete every second entry, , as that's a score link.
+        for (int i = 0; i < usersProfiles.size(); i += 2) {
+            transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
+
             String username = transfersWebDriver.findElement(By.className("gamewindow-title")).getText().trim().split(":")[1].trim();
             logger.info("Viewing User: " + username);
             output.append(username).append("\n");
@@ -112,7 +113,7 @@ public class TransferSeleniumComponent {
                     break;
                 }
             }
-            break; //todo remove this.
+            transfersWebDriver.navigate().back();
         }
 
         // Clean Up
