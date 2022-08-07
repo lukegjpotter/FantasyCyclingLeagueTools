@@ -14,7 +14,7 @@ public class FantasyCyclingLeagueRestController {
     @Autowired
     FantasyCyclingLeagueTransferService transfersService;
 
-    Logger logger = LoggerFactory.getLogger(FantasyCyclingLeagueRestController.class);
+    private final Logger logger = LoggerFactory.getLogger(FantasyCyclingLeagueRestController.class);
 
     @GetMapping("transfers")
     public String getTransfers() {

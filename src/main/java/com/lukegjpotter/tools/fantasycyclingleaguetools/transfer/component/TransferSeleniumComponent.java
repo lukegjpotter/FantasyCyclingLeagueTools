@@ -24,15 +24,16 @@ public class TransferSeleniumComponent {
     @Autowired
     Environment env;
 
-    Logger logger = LoggerFactory.getLogger(TransferSeleniumComponent.class);
+    private final Logger logger = LoggerFactory.getLogger(TransferSeleniumComponent.class);
 
     public String getTransfers() {
 
+        // TODO - Make Chrome Headless
         ChromeOptions options = new ChromeOptions();
         WebDriver transfersWebDriver = new ChromeDriver(options);
 
         // Login using Environmental Variables: ROADCC_USERNAME & ROADCC_PASSWORD
-        logger.info("Logging into Road.cc Fantasy with Username: " + env.getProperty("ROADCC_USERNAME"));
+        logger.info("Logging into Road.cc Fantasy with Username: {}", env.getProperty("ROADCC_USERNAME"));
         transfersWebDriver.get("https://fantasy.road.cc/home");
         transfersWebDriver.findElement(By.name("user")).sendKeys(env.getProperty("ROADCC_USERNAME"));
         transfersWebDriver.findElement(By.name("pass")).sendKeys(env.getProperty("ROADCC_PASSWORD"));
@@ -77,7 +78,7 @@ public class TransferSeleniumComponent {
         }
 
         todaysStageNumber = todaysStageNumber.toLowerCase();
-        logger.info("Latest Stage is " + todaysStageNumber);
+        logger.info("Latest Stage is {}", todaysStageNumber);
 
         // View League
         logger.info("Viewing League");
@@ -94,7 +95,7 @@ public class TransferSeleniumComponent {
             transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
 
             String username = transfersWebDriver.findElement(By.className("gamewindow-title")).getText().trim().split(":")[1].trim();
-            logger.info("Viewing User: " + username);
+            logger.info("Viewing User: {}", username);
             UserTransfer userTransfer = new UserTransfer(username);
 
             // Expand Transfers
@@ -123,12 +124,8 @@ public class TransferSeleniumComponent {
         transfersWebDriver.quit();
 
         StringBuilder output = new StringBuilder("Transfers: Out -> In\n\n");
-
         usersAndTransfers.forEach(userTransfer -> {
-            if (userTransfer.hasTransfers()) {
-                output.append(userTransfer);
-                output.append("\n\n");
-            }
+            if (userTransfer.hasTransfers()) output.append(userTransfer).append("\n\n");
         });
 
         return output.toString();
