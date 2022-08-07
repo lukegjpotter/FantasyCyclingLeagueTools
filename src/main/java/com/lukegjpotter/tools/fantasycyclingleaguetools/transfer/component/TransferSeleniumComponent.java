@@ -1,5 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.component;
 
+import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.model.UserTransfer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -83,15 +85,17 @@ public class TransferSeleniumComponent {
 
         // Loop - Open Each User
         logger.info("Viewing User Profiles");
-        StringBuilder output = new StringBuilder("Transfers: Out -> In\n");
+        List<UserTransfer> usersAndTransfers = new ArrayList<>();
+
         List<WebElement> usersProfiles = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a"));
-        // Delete every second entry, , as that's a score link.
+        // User every second entry, as the other ones are a score link.
         for (int i = 0; i < usersProfiles.size(); i += 2) {
+            // Avoids a Stale Element issue.
             transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
 
             String username = transfersWebDriver.findElement(By.className("gamewindow-title")).getText().trim().split(":")[1].trim();
             logger.info("Viewing User: " + username);
-            output.append(username).append("\n");
+            UserTransfer userTransfer = new UserTransfer(username);
 
             // Expand Transfers
             transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.tagName("a")).click();
@@ -106,10 +110,9 @@ public class TransferSeleniumComponent {
                 if (stage.contains(todaysStageNumber)) {
                     String riderOut = transferFields.get(4).getText().trim();
                     String riderIn = transferFields.get(3).getText().trim();
-                    output.append(riderOut).append(" -> ").append(riderIn).append("\n");
+                    userTransfer.addTransfer(riderOut + " -> " + riderIn);
                 } else {
-                    // End Loop, as we're no longer on the Today's Stage.
-                    output.append("\n");
+                    usersAndTransfers.add(userTransfer);
                     break;
                 }
             }
@@ -118,6 +121,15 @@ public class TransferSeleniumComponent {
 
         // Clean Up
         transfersWebDriver.quit();
+
+        StringBuilder output = new StringBuilder("Transfers: Out -> In\n\n");
+
+        usersAndTransfers.forEach(userTransfer -> {
+            if (userTransfer.hasTransfers()) {
+                output.append(userTransfer);
+                output.append("\n\n");
+            }
+        });
 
         return output.toString();
     }
