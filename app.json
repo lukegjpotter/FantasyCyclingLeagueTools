@@ -15,8 +15,8 @@
   },
   "buildpacks": [
     {
-      "url": "heroku/gradle"
-      "url": "heroku/heroku-buildpack-chromedriver"
+      "url": "heroku/gradle",
+      "url": "heroku/heroku-buildpack-chromedriver",
       "url": "heroku/heroku-buildpack-google-chrome"
     }
   ],
