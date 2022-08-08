@@ -15,9 +15,11 @@
   },
   "buildpacks": [
     {
-      "url": "heroku/gradle",
-      "url": "heroku/heroku-buildpack-chromedriver",
-      "url": "heroku/heroku-buildpack-google-chrome"
+      "url": "heroku/gradle"
+    },{
+      "url": "https://github.com/heroku/heroku-buildpack-chromedriver"
+    },{
+      "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
     }
   ],
   "addons": [
