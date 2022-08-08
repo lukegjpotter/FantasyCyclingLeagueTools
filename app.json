@@ -11,7 +11,8 @@
   ],
   "env": {
     "ROADCC_USERNAME": "yourusername",
-    "ROADCC_PASSWORD": "yourpassword"
+    "ROADCC_PASSWORD": "yourpassword",
+    "ROADCC_LEAGUE_NAME": "yourleaduename"
   },
   "buildpacks": [
     {

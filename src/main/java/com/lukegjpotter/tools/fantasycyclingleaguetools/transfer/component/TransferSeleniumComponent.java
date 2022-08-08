@@ -1,5 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.component;
 
+import com.lukegjpotter.tools.fantasycyclingleaguetools.common.CommonWebsiteOperations;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.model.UserTransfer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +22,7 @@ import java.util.Locale;
 public class TransferSeleniumComponent {
 
     @Autowired
-    Environment env;
+    CommonWebsiteOperations commonWebsiteOperations;
 
     private final Logger logger = LoggerFactory.getLogger(TransferSeleniumComponent.class);
 
@@ -32,21 +32,39 @@ public class TransferSeleniumComponent {
         options.addArguments("headless");
         WebDriver transfersWebDriver = new ChromeDriver(options);
 
-        // Login using Environmental Variables: ROADCC_USERNAME & ROADCC_PASSWORD
-        logger.info("Logging into Road.cc Fantasy with Username: {}", env.getProperty("ROADCC_USERNAME"));
+        // Open website and login.
         transfersWebDriver.get("https://fantasy.road.cc/home");
-        transfersWebDriver.findElement(By.name("user")).sendKeys(env.getProperty("ROADCC_USERNAME"));
-        transfersWebDriver.findElement(By.name("pass")).sendKeys(env.getProperty("ROADCC_PASSWORD"));
-        transfersWebDriver.findElement(By.className("login-submit")).click();
+        commonWebsiteOperations.login(transfersWebDriver);
 
         // Select Competition - Giro, Tour, Vuelta.
-        logger.info("Selecting League");
-
-        WebElement competitionWebElement = transfersWebDriver.findElements(By.className("joinedcomp")).get(0);
-        boolean isRaceOver = competitionWebElement.findElement(By.className("ribbon-grey")).getText().trim().equals("ENDED");
-        competitionWebElement.findElement(By.className("joinbutton")).click();
+        boolean isRaceOver = commonWebsiteOperations.selectCompetition(transfersWebDriver);
 
         // Determine the Latest Stage
+        String todaysStageNumber = determineLatestStage(transfersWebDriver, isRaceOver);
+        logger.info("Latest Stage is {}", todaysStageNumber);
+
+        // View League
+        commonWebsiteOperations.viewLeague(transfersWebDriver);
+
+        // Open Each User
+        todaysStageNumber = todaysStageNumber.toLowerCase();
+        List<UserTransfer> usersAndTransfers = viewUsersAndGetTransfers(transfersWebDriver, todaysStageNumber);
+
+        // Clean Up
+        commonWebsiteOperations.logout(transfersWebDriver);
+        transfersWebDriver.quit();
+
+        // Prepare Output
+        StringBuilder output = new StringBuilder("Transfers: Out -> In<br><br>");
+        usersAndTransfers.forEach(userTransfer -> {
+            if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
+        });
+
+        logger.info("Finished getting the Transfers for {}", todaysStageNumber);
+        return output.toString();
+    }
+
+    private String determineLatestStage(WebDriver transfersWebDriver, boolean isRaceOver) {
         logger.info("Determining Latest Stage");
         /* The touchcarousel-item element will return the three displayed stages.
          * List size will be 21, but the other 18 entries will be blank.
@@ -76,22 +94,16 @@ public class TransferSeleniumComponent {
                 break;
             }
         }
+        return todaysStageNumber;
+    }
 
-        todaysStageNumber = todaysStageNumber.toLowerCase();
-        logger.info("Latest Stage is {}", todaysStageNumber);
-
-        // View League
-        logger.info("Viewing League");
-        // TODO Make the League Name a Configuration Parameter.
-        transfersWebDriver.findElement(By.id("leaguelist-current")).findElement(By.partialLinkText("Wednesday Warrior")).click();
-
-        // Loop - Open Each User
+    private List<UserTransfer> viewUsersAndGetTransfers(WebDriver transfersWebDriver, String todaysStageNumber) {
         logger.info("Viewing User Profiles");
         List<UserTransfer> usersAndTransfers = new ArrayList<>();
 
-        List<WebElement> usersProfiles = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a"));
+        int numberOfAnchorTags = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).size();
         // User every second entry, as the other ones are a score link.
-        for (int i = 0; i < usersProfiles.size(); i += 2) {
+        for (int i = 0; i < numberOfAnchorTags; i += 2) {
             // Avoids a Stale Element issue.
             transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
 
@@ -120,17 +132,6 @@ public class TransferSeleniumComponent {
             }
             transfersWebDriver.navigate().back();
         }
-
-        // Clean Up
-        // TODO Logout of Website, put it in the Commons Operations.
-        transfersWebDriver.quit();
-
-        StringBuilder output = new StringBuilder("Transfers: Out -> In<br><br>");
-        usersAndTransfers.forEach(userTransfer -> {
-            if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
-        });
-
-        logger.info("Finished getting the Transfers for {}", todaysStageNumber);
-        return output.toString();
+        return usersAndTransfers;
     }
 }

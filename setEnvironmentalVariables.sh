@@ -21,3 +21,8 @@ echo " ${green}[info] Set ROADCC_USERNAME to $ROADCC_USERNAME ${reset}"
 echo " [info] Setting ROADCC_PASSWORD"
 export ROADCC_PASSWORD='yourpassword'
 echo " ${green}[info] Set ROADCC_PASSWORD to $ROADCC_PASSWORD ${reset}"
+
+# Set ROADCC_LEAGUE_NAME for local testing
+echo " [info] Setting ROADCC_LEAGUE_NAME"
+export ROADCC_LEAGUE_NAME='yourleaguename'
+echo " ${green}[info] Set ROADCC_LEAGUE_NAME to ROADCC_LEAGUE_NAME ${reset}"
