@@ -25,8 +25,8 @@ public class UserTransfer {
     public String toString() {
 
         StringBuilder transfersAsString = new StringBuilder();
-        if (hasTransfers()) transfers.forEach(transfer -> transfersAsString.append(transfer).append("\n"));
+        if (hasTransfers()) transfers.forEach(transfer -> transfersAsString.append(transfer).append("<br>"));
 
-        return (username + " (" + transfers.size() + ")\n" + transfersAsString).trim();
+        return (username + " (" + transfers.size() + ")<br>" + transfersAsString).trim();
     }
 }
