@@ -109,8 +109,8 @@ public class TransferSeleniumComponent {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
                 if (stage.contains(todaysStageNumber)) {
-                    String riderOut = transferFields.get(4).getText().trim();
-                    String riderIn = transferFields.get(3).getText().trim();
+                    String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[2];
+                    String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[2];
                     userTransfer.addTransfer(riderOut + " -> " + riderIn);
                 } else {
                     usersAndTransfers.add(userTransfer);
@@ -123,9 +123,9 @@ public class TransferSeleniumComponent {
         // Clean Up
         transfersWebDriver.quit();
 
-        StringBuilder output = new StringBuilder("Transfers: Out -> In\n\n");
+        StringBuilder output = new StringBuilder("Transfers: Out -> In<br><br>");
         usersAndTransfers.forEach(userTransfer -> {
-            if (userTransfer.hasTransfers()) output.append(userTransfer).append("\n\n");
+            if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
         });
 
         return output.toString();
