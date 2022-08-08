@@ -121,6 +121,7 @@ public class TransferSeleniumComponent {
         }
 
         // Clean Up
+        // TODO Logout of Website, put it in the Commons Operations.
         transfersWebDriver.quit();
 
         StringBuilder output = new StringBuilder("Transfers: Out -> In<br><br>");
@@ -128,6 +129,7 @@ public class TransferSeleniumComponent {
             if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
         });
 
+        logger.info("Finished getting the Transfers for {}", todaysStageNumber);
         return output.toString();
     }
 }
