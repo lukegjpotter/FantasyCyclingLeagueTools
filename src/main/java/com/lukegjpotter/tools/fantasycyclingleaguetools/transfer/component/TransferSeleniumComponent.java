@@ -28,8 +28,8 @@ public class TransferSeleniumComponent {
 
     public String getTransfers() {
 
-        // TODO - Make Chrome Headless
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
         WebDriver transfersWebDriver = new ChromeDriver(options);
 
         // Login using Environmental Variables: ROADCC_USERNAME & ROADCC_PASSWORD
