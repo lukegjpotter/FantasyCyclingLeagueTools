@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class FantasyCyclingLeagueTransferService {
 
     @Autowired
-    TransferSeleniumComponent transferSeleniumComponent;
+    private TransferSeleniumComponent transferSeleniumComponent;
 
     public String getTransfers() {
         return transferSeleniumComponent.getTransfers();

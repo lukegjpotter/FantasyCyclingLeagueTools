@@ -1,12 +1,11 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.component;
 
+import com.lukegjpotter.tools.fantasycyclingleaguetools.common.CommonWebDriverOperations;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.common.CommonWebsiteOperations;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.model.UserTransfer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +21,16 @@ import java.util.Locale;
 public class TransferSeleniumComponent {
 
     @Autowired
-    CommonWebsiteOperations commonWebsiteOperations;
+    private CommonWebsiteOperations commonWebsiteOperations;
+    @Autowired
+    private CommonWebDriverOperations commonWebDriverOperations;
 
     private final Logger logger = LoggerFactory.getLogger(TransferSeleniumComponent.class);
 
     public String getTransfers() {
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
-        WebDriver transfersWebDriver = new ChromeDriver(options);
-
         // Open website and login.
+        WebDriver transfersWebDriver = commonWebDriverOperations.getHeadlessWebDriver();
         transfersWebDriver.get("https://fantasy.road.cc/home");
         commonWebsiteOperations.login(transfersWebDriver);
 

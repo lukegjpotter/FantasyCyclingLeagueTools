@@ -13,7 +13,7 @@ class UserTransferTest {
         UserTransfer userTransfer = new UserTransfer("luke");
         userTransfer.addTransfer("tom -> harry");
 
-        String expected = "luke (1)\ntom -> harry";
+        String expected = "luke (1)<br>tom -> harry<br>";
         String actual = userTransfer.toString();
 
         assertEquals(expected, actual, "Actual was: " + actual + ".");
@@ -23,7 +23,7 @@ class UserTransferTest {
     void testToString_zeroTransfers() {
         UserTransfer userTransfer = new UserTransfer("luke");
 
-        String expected = "luke (0)";
+        String expected = "luke (0)<br>";
         String actual = userTransfer.toString();
 
         assertEquals(expected, actual, "Actual was: " + actual + ".");
@@ -35,7 +35,7 @@ class UserTransferTest {
         userTransfer.addTransfer("tom -> harry");
         userTransfer.addTransfer("tom -> harry");
 
-        String expected = "luke (2)\ntom -> harry\ntom -> harry";
+        String expected = "luke (2)<br>tom -> harry<br>tom -> harry<br>";
         String actual = userTransfer.toString();
 
         assertEquals(expected, actual, "Actual was: " + actual + ".");

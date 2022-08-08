@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FantasyCyclingLeagueTransferServiceTest {
 
     @InjectMocks
-    FantasyCyclingLeagueTransferService transferService;
+    private FantasyCyclingLeagueTransferService transferService;
     @Mock
-    TransferSeleniumComponent transferSeleniumComponent;
+    private TransferSeleniumComponent transferSeleniumComponent;
 
     @BeforeEach
     void setUp() {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class CommonWebsiteOperations {
 
     @Autowired
-    Environment env;
+    private Environment env;
 
     private final Logger logger = LoggerFactory.getLogger(CommonWebsiteOperations.class);
 

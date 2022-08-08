@@ -1,5 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.controller;
 
+import com.lukegjpotter.tools.fantasycyclingleaguetools.standings.service.FantasyCyclingLeagueStandingsService;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.service.FantasyCyclingLeagueTransferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class FantasyCyclingLeagueRestController {
 
     @Autowired
-    FantasyCyclingLeagueTransferService transfersService;
+    private FantasyCyclingLeagueTransferService transfersService;
+    @Autowired
+    private FantasyCyclingLeagueStandingsService standingsService;
 
     private final Logger logger = LoggerFactory.getLogger(FantasyCyclingLeagueRestController.class);
 
@@ -25,7 +28,7 @@ public class FantasyCyclingLeagueRestController {
     @GetMapping("standings")
     public String getStandings() {
         logger.info("Endpoint standings called");
-        return "Not Implemented\n";
+        return standingsService.getStandings();
     }
 
     @GetMapping("teams")
