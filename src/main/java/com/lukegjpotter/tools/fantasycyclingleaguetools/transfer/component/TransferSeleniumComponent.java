@@ -109,8 +109,8 @@ public class TransferSeleniumComponent {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
                 if (stage.contains(todaysStageNumber)) {
-                    String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[2];
-                    String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[2];
+                    String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[1];
+                    String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[1];
                     userTransfer.addTransfer(riderOut + " -> " + riderIn);
                 } else {
                     usersAndTransfers.add(userTransfer);
