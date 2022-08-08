@@ -82,6 +82,7 @@ public class TransferSeleniumComponent {
 
         // View League
         logger.info("Viewing League");
+        // TODO Make the League Name a Configuration Parameter.
         transfersWebDriver.findElement(By.id("leaguelist-current")).findElement(By.partialLinkText("Wednesday Warrior")).click();
 
         // Loop - Open Each User
