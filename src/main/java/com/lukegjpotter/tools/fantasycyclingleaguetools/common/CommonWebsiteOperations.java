@@ -31,7 +31,8 @@ public class CommonWebsiteOperations {
 
     public boolean selectCompetition(WebDriver webDriver) {
         logger.info("Selecting Competition");
-        WebElement competitionWebElement = webDriver.findElements(By.className("joinedcomp")).get(0);
+        // FixMe: In the case where there are multiple "joinedcomp" results, we'll need to choose the active one.
+        WebElement competitionWebElement = webDriver.findElements(By.className("joinedcomp")).get(1);
         boolean isRaceOver = competitionWebElement.findElement(By.className("ribbon-grey")).getText().trim().equals("ENDED");
         competitionWebElement.findElement(By.className("joinbutton")).click();
 
