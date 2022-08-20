@@ -1,6 +1,7 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.common;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
@@ -31,9 +32,14 @@ public class CommonWebsiteOperations {
 
     public boolean selectCompetition(WebDriver webDriver) {
         logger.info("Selecting Competition");
+        boolean isRaceOver = false;
         // FixMe: In the case where there are multiple "joinedcomp" results, we'll need to choose the active one.
-        WebElement competitionWebElement = webDriver.findElements(By.className("joinedcomp")).get(1);
-        boolean isRaceOver = competitionWebElement.findElement(By.className("ribbon-grey")).getText().trim().equals("ENDED");
+        WebElement competitionWebElement = webDriver.findElement(By.xpath("//div[@class=\"compbox joinedcomp last\"]"));
+        try {
+            isRaceOver = competitionWebElement.findElement(By.className("ribbon-grey")).getText().trim().equals("ENDED");
+        } catch (NoSuchElementException noSuchElementException) {
+            // Ignore, as competition is ongoing.
+        }
         competitionWebElement.findElement(By.className("joinbutton")).click();
 
         return isRaceOver;

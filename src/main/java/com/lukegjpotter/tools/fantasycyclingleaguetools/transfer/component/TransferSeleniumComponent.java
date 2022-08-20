@@ -45,7 +45,6 @@ public class TransferSeleniumComponent {
         commonWebsiteOperations.viewLeague(transfersWebDriver);
 
         // Open Each User
-        todaysStageNumber = todaysStageNumber.toLowerCase();
         List<UserTransfer> usersAndTransfers = viewUsersAndGetTransfers(transfersWebDriver, todaysStageNumber);
 
         // Clean Up
@@ -64,6 +63,7 @@ public class TransferSeleniumComponent {
 
     private String determineLatestStage(WebDriver transfersWebDriver, boolean isRaceOver) {
         logger.info("Determining Latest Stage");
+
         /* The touchcarousel-item element will return the three displayed stages.
          * List size will be 21, but the other 18 entries will be blank.
          * This will not be an issue whilst the race is ongoing, as it will load the previous stage and the next two.
@@ -77,6 +77,9 @@ public class TransferSeleniumComponent {
             for (int i = 0; i < stagesCarouselList.size(); i++) {
                 rightButton.click();
             }
+        } else {
+            // Go back by one stage, then read the list.
+            transfersWebDriver.findElement(By.cssSelector(".arrow-holder.left")).click();
         }
 
         stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
@@ -92,7 +95,11 @@ public class TransferSeleniumComponent {
                 break;
             }
         }
-        return todaysStageNumber;
+
+        String raceName = transfersWebDriver.findElement(By.id("compnav")).findElement(By.className("content")).findElement(By.tagName("H1")).getText().split("-")[0].trim().toLowerCase();
+
+
+        return raceName + " " + todaysStageNumber.toLowerCase();
     }
 
     private List<UserTransfer> viewUsersAndGetTransfers(WebDriver transfersWebDriver, String todaysStageNumber) {
@@ -119,7 +126,7 @@ public class TransferSeleniumComponent {
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
-                if (stage.contains(todaysStageNumber)) {
+                if (stage.equalsIgnoreCase(todaysStageNumber)) {
                     String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[1];
                     String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[1];
                     userTransfer.addTransfer(riderOut + " -> " + riderIn);
