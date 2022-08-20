@@ -50,8 +50,10 @@ public class StandingSeleniumComponent {
         // Loop - Extract Position, Name and Total Score.
         for (WebElement ridersStanding : standingsTableRows) {
             List<WebElement> standingsTableFields = ridersStanding.findElements(By.tagName("td"));
+            String username = standingsTableFields.get(1).getText().trim().split(" {4}")[1];
+            logger.info("Checking Standings for: {}", username);
             // Open Popup, wait for it to load, read the Score.
-            standingsTableFields.get(2).click();
+            standingsTableFields.get(2).findElement(By.tagName("a")).click();
             WebElement stageResultsPopup = new WebDriverWait(standingsWebDriver, Duration.ofMillis(500)).until(ExpectedConditions.presenceOfElementLocated(By.className("ro-mainstats")));
             String todaysScore = stageResultsPopup.findElements(By.tagName("tr")).get(9).findElements(By.tagName("th")).get(1).getText().trim();
             // Close Popup
@@ -59,7 +61,7 @@ public class StandingSeleniumComponent {
 
             standings.append(standingsTableFields.get(0).getText().trim()) // Position
                     .append("\t")
-                    .append(standingsTableFields.get(1).getText().trim().split(" {4}")[1]) // Username
+                    .append(username) // Username
                     .append("\t")
                     .append(standingsTableFields.get(2).getText().trim()) // Total Score
                     .append("\t")
