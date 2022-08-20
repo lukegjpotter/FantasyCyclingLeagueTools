@@ -52,10 +52,11 @@ public class TransferSeleniumComponent {
         transfersWebDriver.quit();
 
         // Prepare Output
-        StringBuilder output = new StringBuilder("Transfers: Out -> In<br><br>");
+        StringBuilder output = new StringBuilder("<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>");
         usersAndTransfers.forEach(userTransfer -> {
             if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
         });
+        output.append("</p></body></html>");
 
         logger.info("Finished getting the Transfers for {}", todaysStageNumber);
         return output.toString();
