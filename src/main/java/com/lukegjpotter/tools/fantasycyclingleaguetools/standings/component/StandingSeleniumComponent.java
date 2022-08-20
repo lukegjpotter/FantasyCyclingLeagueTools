@@ -40,8 +40,7 @@ public class StandingSeleniumComponent {
 
         // Determine Standings and Today's Scores
         logger.info("Determining Standings");
-        // ToDo - Incorporate HTML Table Output.
-        StringBuilder standings = new StringBuilder("Pos.\tName\t\tTotal\tToday\n");
+        StringBuilder standings = new StringBuilder("<html><head><title>Standings</title></head><body><table><tr><th>Pos.</th><th>Name</th><th>Total</th><th>Today</th></tr>");
 
         // Read the League Table
         List<WebElement> standingsTableRows = standingsWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
@@ -54,20 +53,28 @@ public class StandingSeleniumComponent {
             logger.info("Checking Standings for: {}", username);
             // Open Popup, wait for it to load, read the Score.
             standingsTableFields.get(2).findElement(By.tagName("a")).click();
-            WebElement stageResultsPopup = new WebDriverWait(standingsWebDriver, Duration.ofMillis(500)).until(ExpectedConditions.presenceOfElementLocated(By.className("ro-mainstats")));
+            WebElement stageResultsPopup = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.presenceOfElementLocated(By.className("ro-mainstats")));
             String todaysScore = stageResultsPopup.findElements(By.tagName("tr")).get(9).findElements(By.tagName("th")).get(1).getText().trim();
-            // Close Popup
-            standingsWebDriver.findElement(By.id("overlay")).findElement(By.id("overlay-hide")).click();
 
-            standings.append(standingsTableFields.get(0).getText().trim()) // Position
-                    .append("\t")
+            // Close Popup
+            WebElement stageResultsClose = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
+            stageResultsClose.click();
+            //findElement(By.id("overlay")).findElement(By.id("overlay-hide"))
+            // /html/body/div[2]/div[3]/a
+            // /html/body/div[2]/div[3]/a
+            // //*[@id="overlay-hide"]
+
+            standings.append("<tr><td>")
+                    .append(standingsTableFields.get(0).getText().trim()) // Position
+                    .append("</td><td>")
                     .append(username) // Username
-                    .append("\t")
+                    .append("</td><td>")
                     .append(standingsTableFields.get(2).getText().trim()) // Total Score
-                    .append("\t")
+                    .append("</td><td>")
                     .append(todaysScore)
-                    .append("\n");
+                    .append("</td></tr>");
         }
+        standings.append("</table></body></html>");
 
         // Cleanup
         commonWebsiteOperations.logout(standingsWebDriver);
