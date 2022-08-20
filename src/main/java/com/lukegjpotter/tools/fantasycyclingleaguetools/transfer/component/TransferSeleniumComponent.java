@@ -71,6 +71,7 @@ public class TransferSeleniumComponent {
          * But if the competition is finished, then we'll need to press the button to scroll the carousel. */
         List<WebElement> stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
 
+        // FixMe - This will break for stage 21, as I will click it back one and 21 will disspear.
         if (isRaceOver) {
             // Click the right arrow the stagesCarouselList.size, number of times to get to the latest stages.
             WebElement rightButton = transfersWebDriver.findElement(By.cssSelector(".arrow-holder.right"));
