@@ -5,11 +5,14 @@ import com.lukegjpotter.tools.fantasycyclingleaguetools.common.CommonWebsiteOper
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.List;
 
 @Component
@@ -47,16 +50,22 @@ public class StandingSeleniumComponent {
         // Loop - Extract Position, Name and Total Score.
         for (WebElement ridersStanding : standingsTableRows) {
             List<WebElement> standingsTableFields = ridersStanding.findElements(By.tagName("td"));
+            // Open Popup, wait for it to load, read the Score.
+            standingsTableFields.get(2).click();
+            WebElement stageResultsPopup = new WebDriverWait(standingsWebDriver, Duration.ofMillis(500)).until(ExpectedConditions.presenceOfElementLocated(By.className("ro-mainstats")));
+            String todaysScore = stageResultsPopup.findElements(By.tagName("tr")).get(9).findElements(By.tagName("th")).get(1).getText().trim();
+            // Close Popup
+            standingsWebDriver.findElement(By.id("overlay")).findElement(By.id("overlay-hide")).click();
 
             standings.append(standingsTableFields.get(0).getText().trim()) // Position
                     .append("\t")
                     .append(standingsTableFields.get(1).getText().trim().split(" {4}")[1]) // Username
                     .append("\t")
                     .append(standingsTableFields.get(2).getText().trim()) // Total Score
+                    .append("\t")
+                    .append(todaysScore)
                     .append("\n");
         }
-        // Loop - Extract Person's Today's Stage Scores.
-        // ToDo - Add Today's Scores
 
         // Cleanup
         commonWebsiteOperations.logout(standingsWebDriver);
