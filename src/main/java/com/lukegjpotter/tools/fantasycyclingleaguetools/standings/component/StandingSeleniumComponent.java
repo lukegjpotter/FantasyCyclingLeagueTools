@@ -28,7 +28,7 @@ public class StandingSeleniumComponent {
     public String getStandings() {
 
         // Open website and login.
-        WebDriver standingsWebDriver = commonWebDriverOperations.getWebDriverWithUI();
+        WebDriver standingsWebDriver = commonWebDriverOperations.getWebDriverHeadless();
         standingsWebDriver.get("https://fantasy.road.cc/home");
         commonWebsiteOperations.login(standingsWebDriver);
 
@@ -51,18 +51,12 @@ public class StandingSeleniumComponent {
             List<WebElement> standingsTableFields = ridersStanding.findElements(By.tagName("td"));
             String username = standingsTableFields.get(1).getText().trim().split(" {4}")[1];
             logger.info("Checking Standings for: {}", username);
-            // Open Popup, wait for it to load, read the Score.
-            standingsTableFields.get(2).findElement(By.tagName("a")).click();
-            WebElement stageResultsPopup = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.presenceOfElementLocated(By.className("ro-mainstats")));
-            String todaysScore = stageResultsPopup.findElements(By.tagName("tr")).get(9).findElements(By.tagName("th")).get(1).getText().trim();
 
-            // Close Popup
+            // Open Popup, wait for it to load, read the Score, Close Popup
+            standingsTableFields.get(2).findElement(By.tagName("a")).click();
             WebElement stageResultsClose = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
+            String todaysScore = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[10]/th[2]")).getText().trim();
             stageResultsClose.click();
-            //findElement(By.id("overlay")).findElement(By.id("overlay-hide"))
-            // /html/body/div[2]/div[3]/a
-            // /html/body/div[2]/div[3]/a
-            // //*[@id="overlay-hide"]
 
             standings.append("<tr><td>")
                     .append(standingsTableFields.get(0).getText().trim()) // Position
