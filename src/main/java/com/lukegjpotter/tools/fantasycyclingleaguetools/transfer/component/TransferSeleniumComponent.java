@@ -30,7 +30,7 @@ public class TransferSeleniumComponent {
     public String getTransfers() {
 
         // Open website and login.
-        WebDriver transfersWebDriver = commonWebDriverOperations.getHeadlessWebDriver();
+        WebDriver transfersWebDriver = commonWebDriverOperations.getWebDriverHeadless();
         transfersWebDriver.get("https://fantasy.road.cc/home");
         commonWebsiteOperations.login(transfersWebDriver);
 

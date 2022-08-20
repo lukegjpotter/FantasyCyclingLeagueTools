@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommonWebDriverOperations {
 
-    public WebDriver getHeadlessWebDriver() {
+    public WebDriver getWebDriverHeadless() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
 
