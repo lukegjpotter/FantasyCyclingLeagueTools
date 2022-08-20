@@ -14,10 +14,10 @@ of a REST Endpoint.
 ## Active APIs
 
 * Get Transfers
+* Get League Standings Including Today's scores.
 
 ## Pending APIs
 
-* Get League Standings Including Today's scores.
 * Get Current Teams
 
 ## Build, Run and Test
