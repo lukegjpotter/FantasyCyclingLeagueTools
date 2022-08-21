@@ -1,6 +1,7 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.controller;
 
 import com.lukegjpotter.tools.fantasycyclingleaguetools.standings.service.FantasyCyclingLeagueStandingsService;
+import com.lukegjpotter.tools.fantasycyclingleaguetools.teams.service.FantasyCyclingLeagueTeamsService;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.service.FantasyCyclingLeagueTransferService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +23,8 @@ class FantasyCyclingLeagueRestControllerTest {
     private FantasyCyclingLeagueTransferService transferService;
     @Mock
     private FantasyCyclingLeagueStandingsService standingsService;
+    @Mock
+    private FantasyCyclingLeagueTeamsService teamsService;
 
     @BeforeEach
     void setUp() {
@@ -54,9 +57,11 @@ class FantasyCyclingLeagueRestControllerTest {
 
     @Test
     void getTeams() {
-        String expected = "Not Implemented\n";
-        String actual = restController.getTeams(0);
+        Mockito.when(teamsService.getTeams()).thenReturn("Mocked Teams");
 
-        assertEquals(expected, actual, "Class is implemented.");
+        String expected = "Mocked Teams";
+        String actual = restController.getTeams();
+
+        assertEquals(expected, actual, "Mocked Teams Service is not correct");
     }
 }
