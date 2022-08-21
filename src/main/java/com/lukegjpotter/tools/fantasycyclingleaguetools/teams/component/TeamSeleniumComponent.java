@@ -59,12 +59,14 @@ public class TeamSeleniumComponent {
             WebElement stageResultsClose = new WebDriverWait(teamsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
 
             for (int i = 2; i <= 9; i++) {
-                String riderSurame = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[" + i + "]/td[1]")).getText().trim().split(" ", 3)[1];
+                String riderSurame = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[" + i + "]/td[1]")).getText().trim();
+                riderSurame = riderSurame.split(" {2}", 2)[0].trim().split(" ", 2)[1];
                 usersTeams.addRidertoUsersTeam(username, riderSurame);
             }
 
             stageResultsClose.click();
         }
+        // TODO Merge Transfers.
         teamsStringBuilder.append(usersTeams).append("</body></html>");
 
         // Cleanup
