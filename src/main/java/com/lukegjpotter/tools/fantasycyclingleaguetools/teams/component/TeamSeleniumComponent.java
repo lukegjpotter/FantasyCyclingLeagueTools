@@ -3,6 +3,7 @@ package com.lukegjpotter.tools.fantasycyclingleaguetools.teams.component;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.common.CommonWebDriverOperations;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.common.CommonWebsiteOperations;
 import com.lukegjpotter.tools.fantasycyclingleaguetools.teams.model.UsersTeams;
+import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.service.FantasyCyclingLeagueTransferService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,8 @@ public class TeamSeleniumComponent {
     private CommonWebsiteOperations commonWebsiteOperations;
     @Autowired
     private CommonWebDriverOperations commonWebDriverOperations;
+    @Autowired
+    private FantasyCyclingLeagueTransferService transferService;
 
     private final Logger logger = LoggerFactory.getLogger(TeamSeleniumComponent.class);
 
@@ -41,8 +44,26 @@ public class TeamSeleniumComponent {
         // Determine Standings and Today's Scores
         logger.info("Determining Existing Teams");
         StringBuilder teamsStringBuilder = new StringBuilder("<html><head><title>Teams</title></head><body>");
-        UsersTeams usersTeams = new UsersTeams();
+        UsersTeams usersTeams = getUsersTeams(teamsWebDriver);
 
+        // Cleanup
+        commonWebsiteOperations.logout(teamsWebDriver);
+        teamsWebDriver.quit();
+        logger.info("Finished Getting Teams");
+
+        // Merge Transfers.
+        logger.info("Merging Transfers");
+        String transfersHtmlSource = transferService.getTransfers();
+        // TODO Merge Transfers.
+        String username = "", riderOut = "", riderIn = "";
+        usersTeams.replaceRiderForUsersTeam(username, riderOut, riderIn);
+        teamsStringBuilder.append(usersTeams).append("</body></html>");
+
+        return teamsStringBuilder.toString();
+    }
+
+    private UsersTeams getUsersTeams(WebDriver teamsWebDriver) {
+        UsersTeams usersTeams = new UsersTeams();
         // Read the League Table
         List<WebElement> standingsTableRows = teamsWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
         standingsTableRows.remove(0); // Remove the Table Header Row.
@@ -66,14 +87,7 @@ public class TeamSeleniumComponent {
 
             stageResultsClose.click();
         }
-        // TODO Merge Transfers.
-        teamsStringBuilder.append(usersTeams).append("</body></html>");
 
-        // Cleanup
-        commonWebsiteOperations.logout(teamsWebDriver);
-        teamsWebDriver.quit();
-        logger.info("Finished Getting Teams");
-
-        return teamsStringBuilder.toString();
+        return usersTeams;
     }
 }
