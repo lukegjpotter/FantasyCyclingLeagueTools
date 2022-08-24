@@ -35,20 +35,18 @@ class TransferMergeComponentTest {
         usersTeams.addRidertoUsersTeam("Luke", "Merlier");
         usersTeams.addRidertoUsersTeam("Luke", "Teunissen");
 
-        String transfersHtmlSource = "\n" +
-                "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
+        String transfersHtmlSource = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
                 "SEAN (1)<br>Bennett -> Lutsenko<br><br><br>" +
                 "KAY (2)<br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
                 "LUKE (3)<br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
                 "</p></body></html>";
 
-        String expected =
-                "<table>" +
-                        "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
-                        "<tr><td>Roglic</td><td bgcolor=\"#D7BDE2\">Yates</td><td bgcolor=\"#D7BDE2\">Evenepoel</td></tr>" +
-                        "<tr><td>Alaphilippe</td><td bgcolor=\"#D7BDE2\">De Gendt</td><td bgcolor=\"#D7BDE2\">Herrada</td></tr>" +
-                        "<tr><td bgcolor=\"#D7BDE2\">Lutsenko</td><td>Hayter</td><td bgcolor=\"#D7BDE2\">Alaphilippe</td></tr>" +
-                        "</table>";
+        String expected = "<table>" +
+                "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
+                "<tr><td>Roglic</td><td bgcolor=\"#D7BDE2\">Yates</td><td bgcolor=\"#D7BDE2\">Evenepoel</td></tr>" +
+                "<tr><td>Alaphilippe</td><td bgcolor=\"#D7BDE2\">De Gendt</td><td bgcolor=\"#D7BDE2\">Herrada</td></tr>" +
+                "<tr><td bgcolor=\"#D7BDE2\">Lutsenko</td><td>Hayter</td><td bgcolor=\"#D7BDE2\">Alaphilippe</td></tr>" +
+                "</table>";
 
         String actual = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams).toString();
 
@@ -70,20 +68,18 @@ class TransferMergeComponentTest {
         usersTeams.addRidertoUsersTeam("Luke", "Herrada");
         usersTeams.addRidertoUsersTeam("Luke", "Alaphilippe");
 
-        String transfersHtmlSource = "\n" +
-                "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
+        String transfersHtmlSource = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
                 "SEAN (1)<br>Bennett -> Lutsenko<br><br><br>" +
                 "KAY (2)<br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
                 "LUKE (3)<br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
                 "</p></body></html>";
 
-        String expected =
-                "<table>" +
-                        "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
-                        "<tr><td>Roglic</td><td>Yates</td><td>Evenepoel</td></tr>" +
-                        "<tr><td>Alaphilippe</td><td>De Gendt</td><td>Herrada</td></tr>" +
-                        "<tr><td>Lutsenko</td><td>Hayter</td><td>Alaphilippe</td></tr>" +
-                        "</table>";
+        String expected = "<table>" +
+                "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
+                "<tr><td>Roglic</td><td>Yates</td><td>Evenepoel</td></tr>" +
+                "<tr><td>Alaphilippe</td><td>De Gendt</td><td>Herrada</td></tr>" +
+                "<tr><td>Lutsenko</td><td>Hayter</td><td>Alaphilippe</td></tr>" +
+                "</table>";
 
         String actual = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams).toString();
 

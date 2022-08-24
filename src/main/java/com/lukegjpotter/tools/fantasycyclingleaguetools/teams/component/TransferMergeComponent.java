@@ -15,7 +15,7 @@ public class TransferMergeComponent {
     public UsersTeams mergeTransfersIntoUsersTeams(String transfersHtmlSource, UsersTeams usersTeams) {
         logger.info("Merging Transfers");
 
-        int substringStart = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>".length() + 1;
+        int substringStart = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>".length();
         int substringEnd = transfersHtmlSource.length() - "</p></body></html>".length();
         transfersHtmlSource = transfersHtmlSource.substring(substringStart, substringEnd);
         transfersHtmlSource = transfersHtmlSource.replace("<br>", "\n");
