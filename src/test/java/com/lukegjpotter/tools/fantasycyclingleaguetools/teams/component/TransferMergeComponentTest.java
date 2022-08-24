@@ -21,7 +21,7 @@ class TransferMergeComponentTest {
     }
 
     @Test
-    void mergeTransfersIntoUsersTeams() {
+    void mergeTransfersIntoUsersTeams_BeforeResultsPublished() {
         usersTeams.addUser("Sean");
         usersTeams.addRidertoUsersTeam("Sean", "Roglic");
         usersTeams.addRidertoUsersTeam("Sean", "Alaphilippe");
@@ -52,6 +52,41 @@ class TransferMergeComponentTest {
 
         String actual = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams).toString();
 
-        assertEquals(expected, actual); //, "Expected not equals Actual.");
+        assertEquals(expected, actual, "Expected not equals Actual.");
+    }
+
+    @Test
+    void mergeTransfersIntoUsersTeams_AfterResultsPublished() {
+        usersTeams.addUser("Sean");
+        usersTeams.addRidertoUsersTeam("Sean", "Roglic");
+        usersTeams.addRidertoUsersTeam("Sean", "Alaphilippe");
+        usersTeams.addRidertoUsersTeam("Sean", "Lutsenko");
+        usersTeams.addUser("Kay");
+        usersTeams.addRidertoUsersTeam("Kay", "Yates");
+        usersTeams.addRidertoUsersTeam("Kay", "De Gendt");
+        usersTeams.addRidertoUsersTeam("Kay", "Hayter");
+        usersTeams.addUser("Luke");
+        usersTeams.addRidertoUsersTeam("Luke", "Evenepoel");
+        usersTeams.addRidertoUsersTeam("Luke", "Herrada");
+        usersTeams.addRidertoUsersTeam("Luke", "Alaphilippe");
+
+        String transfersHtmlSource = "\n" +
+                "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
+                "SEAN (1)<br>Bennett -> Lutsenko<br><br><br>" +
+                "KAY (2)<br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
+                "LUKE (3)<br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
+                "</p></body></html>";
+
+        String expected =
+                "<table>" +
+                        "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
+                        "<tr><td>Roglic</td><td>Yates</td><td>Evenepoel</td></tr>" +
+                        "<tr><td>Alaphilippe</td><td>De Gendt</td><td>Herrada</td></tr>" +
+                        "<tr><td>Lutsenko</td><td>Hayter</td><td>Alaphilippe</td></tr>" +
+                        "</table>";
+
+        String actual = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams).toString();
+
+        assertEquals(expected, actual, "Expected not equals Actual.");
     }
 }
