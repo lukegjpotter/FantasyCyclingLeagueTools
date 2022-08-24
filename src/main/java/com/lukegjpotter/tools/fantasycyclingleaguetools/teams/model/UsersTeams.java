@@ -32,7 +32,7 @@ public class UsersTeams {
 
     public boolean replaceRiderForUsersTeam(String username, String riderOut, String riderIn) {
         for (List<String> team : usersTeams) {
-            if (team.get(0).equals(username)) {
+            if (team.get(0).equalsIgnoreCase(username)) {
                 for (int i = 1; i < team.size(); i++) {
                     if (team.get(i).equals(riderOut)) {
                         team.set(i, TRANSFER_SIGNAL + riderIn);
