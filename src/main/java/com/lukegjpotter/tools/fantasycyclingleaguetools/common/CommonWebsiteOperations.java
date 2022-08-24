@@ -33,7 +33,7 @@ public class CommonWebsiteOperations {
     public boolean selectCompetition(WebDriver webDriver) {
         logger.info("Selecting Competition");
         boolean isRaceOver = false;
-        // FixMe: In the case where there are multiple "joinedcomp" results, we'll need to choose the active one.
+
         WebElement competitionWebElement = webDriver.findElement(By.xpath("//div[@class=\"compbox joinedcomp last\"]"));
         try {
             isRaceOver = competitionWebElement.findElement(By.className("ribbon-grey")).getText().trim().equals("ENDED");

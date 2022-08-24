@@ -49,14 +49,15 @@ public class TeamSeleniumComponent {
         UsersTeams usersTeams = determineUsersTeams(teamsWebDriver);
 
         // Cleanup
+        logger.info("Determined Teams");
         commonWebsiteOperations.logout(teamsWebDriver);
         teamsWebDriver.quit();
-        logger.info("Finished Getting Teams");
 
         // Merge Transfers.
         String transfersHtmlSource = transferService.getTransfers();
         usersTeams = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams);
         teamsStringBuilder.append(usersTeams).append("</body></html>");
+        logger.info("Finished Getting Teams");
 
         return teamsStringBuilder.toString();
     }

@@ -11,6 +11,7 @@ public class FantasyCyclingLeagueTransferService {
     private TransferSeleniumComponent transferSeleniumComponent;
 
     public String getTransfers() {
+        // ToDo - Refactor, use POJOs and separate the HTML Wrapping.
         return transferSeleniumComponent.getTransfers();
     }
 }

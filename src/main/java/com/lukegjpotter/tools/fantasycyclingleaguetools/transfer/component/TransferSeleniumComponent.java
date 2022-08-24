@@ -48,6 +48,7 @@ public class TransferSeleniumComponent {
         List<UserTransfer> usersAndTransfers = viewUsersAndGetTransfers(transfersWebDriver, todaysStageNumber);
 
         // Clean Up
+        logger.info("Finished getting the Transfers for {}", todaysStageNumber);
         commonWebsiteOperations.logout(transfersWebDriver);
         transfersWebDriver.quit();
 
@@ -58,7 +59,6 @@ public class TransferSeleniumComponent {
         });
         output.append("</p></body></html>");
 
-        logger.info("Finished getting the Transfers for {}", todaysStageNumber);
         return output.toString();
     }
 

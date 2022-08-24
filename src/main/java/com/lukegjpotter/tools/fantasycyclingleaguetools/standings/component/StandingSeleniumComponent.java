@@ -71,9 +71,9 @@ public class StandingSeleniumComponent {
         standings.append("</table></body></html>");
 
         // Cleanup
+        logger.info("Finished Getting Standings");
         commonWebsiteOperations.logout(standingsWebDriver);
         standingsWebDriver.quit();
-        logger.info("Finished Getting Standings");
 
         return standings.toString();
     }
