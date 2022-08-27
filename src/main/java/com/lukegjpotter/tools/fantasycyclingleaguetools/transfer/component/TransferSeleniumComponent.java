@@ -31,7 +31,7 @@ public class TransferSeleniumComponent {
 
         // Open website and login.
         WebDriver transfersWebDriver = commonWebDriverOperations.getWebDriverHeadless();
-        transfersWebDriver.get("https://fantasy.road.cc/home");
+        commonWebsiteOperations.openRoadCcFantasyWebsite(transfersWebDriver);
         commonWebsiteOperations.login(transfersWebDriver);
 
         // Select Competition - Giro, Tour, Vuelta.

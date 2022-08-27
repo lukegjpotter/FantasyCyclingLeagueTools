@@ -34,7 +34,7 @@ public class TeamSeleniumComponent {
     public String getTeams() {
         // Open website and login.
         WebDriver teamsWebDriver = commonWebDriverOperations.getWebDriverHeadless();
-        teamsWebDriver.get("https://fantasy.road.cc/home");
+        commonWebsiteOperations.openRoadCcFantasyWebsite(teamsWebDriver);
         commonWebsiteOperations.login(teamsWebDriver);
 
         // View Competition

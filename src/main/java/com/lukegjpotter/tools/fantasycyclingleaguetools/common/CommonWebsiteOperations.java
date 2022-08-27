@@ -30,6 +30,10 @@ public class CommonWebsiteOperations {
         webDriver.findElement(By.xpath("//a[@href='/logout']")).click();
     }
 
+    public void openRoadCcFantasyWebsite(WebDriver webDriver) {
+        webDriver.get("https://fantasy.road.cc/home");
+    }
+
     public boolean selectCompetition(WebDriver webDriver) {
         logger.info("Selecting Competition");
         boolean isRaceOver = false;

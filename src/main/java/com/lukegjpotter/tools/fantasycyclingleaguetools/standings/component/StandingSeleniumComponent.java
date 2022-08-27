@@ -29,7 +29,7 @@ public class StandingSeleniumComponent {
 
         // Open website and login.
         WebDriver standingsWebDriver = commonWebDriverOperations.getWebDriverHeadless();
-        standingsWebDriver.get("https://fantasy.road.cc/home");
+        commonWebsiteOperations.openRoadCcFantasyWebsite(standingsWebDriver);
         commonWebsiteOperations.login(standingsWebDriver);
 
         // View Competition
