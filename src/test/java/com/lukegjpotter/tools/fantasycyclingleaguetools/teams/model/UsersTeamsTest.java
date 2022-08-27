@@ -112,4 +112,19 @@ class UsersTeamsTest {
 
         assertEquals(expected, actual, "Expected not equals actual");
     }
+
+    @Test
+    void testReplaceRiderForUsersTeam_oneTeam_oneRider_spaceInUsername() {
+        usersTeams.addUser("Usery McUserFace");
+        usersTeams.addRidertoUsersTeam("Usery McUserFace", "1-rider1");
+        usersTeams.replaceRiderForUsersTeam("Usery McUserFace", "1-rider1", "newrider");
+
+        String expected = "<table>" +
+                "<tr><th>Usery McUserFace</th></tr>" +
+                "<tr><td bgcolor=\"#D7BDE2\">newrider</td></tr>" +
+                "</table>";
+        String actual = usersTeams.toString();
+
+        assertEquals(expected, actual, "Expected not equals actual");
+    }
 }

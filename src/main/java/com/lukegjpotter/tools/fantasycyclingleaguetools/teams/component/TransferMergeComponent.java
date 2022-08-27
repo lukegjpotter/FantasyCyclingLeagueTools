@@ -27,7 +27,7 @@ public class TransferMergeComponent {
             String line = transfersScanner.nextLine();
 
             if (line.contains("(")) {
-                username = line.split(" ")[0].trim();
+                username = line.split("\\(", 2)[0].trim();
             } else if (line.contains("->")) {
                 riderOut = line.split("->")[0].trim();
                 riderIn = line.split("->")[1].trim();

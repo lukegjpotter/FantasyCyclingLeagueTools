@@ -85,4 +85,37 @@ class TransferMergeComponentTest {
 
         assertEquals(expected, actual, "Expected not equals Actual.");
     }
+
+    @Test
+    void mergeTransfersIntoUsersTeams_BeforeResultsPublished_SpaceInUsername() {
+        usersTeams.addUser("Sean");
+        usersTeams.addRidertoUsersTeam("Sean", "Roglic");
+        usersTeams.addRidertoUsersTeam("Sean", "Alaphilippe");
+        usersTeams.addRidertoUsersTeam("Sean", "Bennett");
+        usersTeams.addUser("Kay McKay");
+        usersTeams.addRidertoUsersTeam("Kay McKay", "Stewart");
+        usersTeams.addRidertoUsersTeam("Kay McKay", "Higuita");
+        usersTeams.addRidertoUsersTeam("Kay McKay", "Hayter");
+        usersTeams.addUser("Luke");
+        usersTeams.addRidertoUsersTeam("Luke", "Bennett");
+        usersTeams.addRidertoUsersTeam("Luke", "Merlier");
+        usersTeams.addRidertoUsersTeam("Luke", "Teunissen");
+
+        String transfersHtmlSource = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
+                "SEAN (1)<br>Bennett -> Lutsenko<br><br><br>" +
+                "KAY MCKAY (2)<br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
+                "LUKE (3)<br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
+                "</p></body></html>";
+
+        String expected = "<table>" +
+                "<tr><th>Sean</th><th>Kay McKay</th><th>Luke</th></tr>" +
+                "<tr><td>Roglic</td><td bgcolor=\"#D7BDE2\">Yates</td><td bgcolor=\"#D7BDE2\">Evenepoel</td></tr>" +
+                "<tr><td>Alaphilippe</td><td bgcolor=\"#D7BDE2\">De Gendt</td><td bgcolor=\"#D7BDE2\">Herrada</td></tr>" +
+                "<tr><td bgcolor=\"#D7BDE2\">Lutsenko</td><td>Hayter</td><td bgcolor=\"#D7BDE2\">Alaphilippe</td></tr>" +
+                "</table>";
+
+        String actual = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams).toString();
+
+        assertEquals(expected, actual, "Expected not equals Actual.");
+    }
 }
