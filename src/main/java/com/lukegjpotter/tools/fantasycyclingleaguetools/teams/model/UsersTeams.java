@@ -1,7 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.teams.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class UsersTeams {
 
@@ -44,22 +43,56 @@ public class UsersTeams {
         return false;
     }
 
+    public boolean isRiderInUsersTeam(String username, String riderName) {
+        for (List<String> team : usersTeams) {
+            if (team.get(0).equalsIgnoreCase(username)) {
+                for (int i = 1; i < team.size(); i++) {
+                    if (riderNameWithoutTransferSignal(team.get(i)).equals(riderName)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public List<String> getUsernames() {
+        List<String> usernames = new ArrayList<>();
+        usersTeams.forEach(teams -> usernames.add(teams.get(0)));
+
+        return usernames;
+    }
+
     @Override
     public String toString() {
+        if (usersTeams.isEmpty()) return "";
 
-        StringBuilder output = new StringBuilder("<table><tr>");
+        StringBuilder output = new StringBuilder("<table>");
 
-        // Username
-        for (List<String> usernames : usersTeams) {
-            output.append("<th>").append(usernames.get(0)).append("</th>");
+        // Usernames - header row
+        output.append("<tr>");
+        for (String username : getUsernames()) {
+            output.append("<th>").append(username).append("</th>");
         }
         output.append("</tr>");
 
         // Riders
-        for (int riderPos = 1; riderPos < usersTeams.get(0).size(); riderPos++) {
+        int maxSizeOfTeam = 0;
+        // usersTeams.get(0).size()
+        for (List<String> userTeam : usersTeams) {
+            int sizeOfCurrentTeam = userTeam.size();
+            if (sizeOfCurrentTeam > maxSizeOfTeam) maxSizeOfTeam = sizeOfCurrentTeam;
+        }
+
+        for (int riderPos = 1; riderPos < maxSizeOfTeam; riderPos++) {
             output.append("<tr>");
             for (int teamPos = 0; teamPos < usersTeams.size(); teamPos++) {
-                String ridername = usersTeams.get(teamPos).get(riderPos);
+                String ridername = "";
+                try {
+                    ridername = usersTeams.get(teamPos).get(riderPos);
+                } catch (IndexOutOfBoundsException ioobException) {
+                    // No need to do anything, as ridername is already empty;
+                }
                 if (ridername.startsWith(TRANSFER_SIGNAL)) {
                     ridername = ridername.substring(TRANSFER_SIGNAL.length());
                     output.append("<td bgcolor=\"#D7BDE2\">");
@@ -72,5 +105,78 @@ public class UsersTeams {
         }
 
         return output.append("</table>").toString();
+    }
+
+    public void alignTeams() {
+        if (usersTeams.isEmpty()) return;
+
+        Map<String, String> transferRecordsMap = new HashMap<>();
+        Map<String, Integer> riderToOccurrencesMap = new TreeMap<>();
+
+        /* Count Unique Riders and count Occurrences
+         * Extract the TRANSFER_SIGNAL, store records and reapply them later. */
+        for (List<String> userTeam : usersTeams) {
+            for (int riderPos = 1; riderPos < userTeam.size(); riderPos++) {
+                String riderName = userTeam.get(riderPos);
+
+                if (riderName.startsWith(TRANSFER_SIGNAL)) {
+                    riderName = riderNameWithoutTransferSignal(riderName);
+                    transferRecordsMap.put(userTeam.get(0), riderName);
+                }
+
+                int currentOccurrencesOfRider = 0;
+                if (riderToOccurrencesMap.containsKey(riderName)) {
+                    currentOccurrencesOfRider = riderToOccurrencesMap.get(riderName);
+                }
+                riderToOccurrencesMap.put(riderName, ++currentOccurrencesOfRider);
+            }
+        }
+
+        // Init the alignedUsersTeams.
+        UsersTeams alignedUsersTeams = new UsersTeams();
+        getUsernames().forEach(alignedUsersTeams::addUser);
+
+        /* If value (currentOccurrencesOfRider) in EntrySet = numberOfTeamsRiderIsIn countdown.
+         * Then, using the isRiderInUsersTeam, add to each alignedUsersTeams, ensure to printout empty columns.
+         * When numberOfTeamsRiderIsIn is 1, print them all out without spaces beside them. */
+        for (int numberOfTeamsRiderIsIn = usersTeams.size(); numberOfTeamsRiderIsIn > 1; numberOfTeamsRiderIsIn--) {
+            for (Map.Entry<String, Integer> riderToOccurrencesEntry : riderToOccurrencesMap.entrySet()) {
+                if (riderToOccurrencesEntry.getValue() == numberOfTeamsRiderIsIn) {
+                    String riderName = riderToOccurrencesEntry.getKey();
+
+                    for (String username : getUsernames()) {
+                        if (isRiderInUsersTeam(username, riderName)) {
+                            alignedUsersTeams.addRidertoUsersTeam(username, riderName);
+                        } else {
+                            alignedUsersTeams.addRidertoUsersTeam(username, "");
+                        }
+                    }
+                }
+            }
+        }
+        for (Map.Entry<String, Integer> riderToOccurrencesEntry : riderToOccurrencesMap.entrySet()) {
+            if (riderToOccurrencesEntry.getValue() == 1) {
+                String riderName = riderToOccurrencesEntry.getKey();
+
+                for (String username : getUsernames()) {
+                    if (isRiderInUsersTeam(username, riderName)) {
+                        alignedUsersTeams.addRidertoUsersTeam(username, riderName);
+                    }
+                }
+            }
+        }
+
+        // Reapply the TRANSFER_SIGNAL.
+        transferRecordsMap.keySet().forEach(username -> alignedUsersTeams.replaceRiderForUsersTeam(username, transferRecordsMap.get(username), transferRecordsMap.get(username)));
+
+        // Reassign the AlignedUsers teams.
+        usersTeams = alignedUsersTeams.usersTeams;
+    }
+
+    private String riderNameWithoutTransferSignal(String rider) {
+        if (rider.startsWith(TRANSFER_SIGNAL)) {
+            return rider.substring(TRANSFER_SIGNAL.length());
+        }
+        return rider;
     }
 }

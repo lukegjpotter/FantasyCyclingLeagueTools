@@ -53,9 +53,14 @@ public class TeamSeleniumComponent {
         commonWebsiteOperations.logout(teamsWebDriver);
         teamsWebDriver.quit();
 
+
         // Merge Transfers.
         String transfersHtmlSource = transferService.getTransfers();
         usersTeams = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams);
+
+        // Align Teams
+        usersTeams.alignTeams();
+
         teamsStringBuilder.append(usersTeams).append("</body></html>");
         logger.info("Finished Getting Teams");
 
