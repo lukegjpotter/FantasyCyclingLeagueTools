@@ -1,11 +1,16 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.teams.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 public class UsersTeams {
 
     private List<List<String>> usersTeams;
     private static final String TRANSFER_SIGNAL = "tx->";
+
+    private final Logger logger = LoggerFactory.getLogger(UsersTeams.class);
 
     public UsersTeams() {
         usersTeams = new ArrayList<>();
@@ -78,7 +83,6 @@ public class UsersTeams {
 
         // Riders
         int maxSizeOfTeam = 0;
-        // usersTeams.get(0).size()
         for (List<String> userTeam : usersTeams) {
             int sizeOfCurrentTeam = userTeam.size();
             if (sizeOfCurrentTeam > maxSizeOfTeam) maxSizeOfTeam = sizeOfCurrentTeam;
@@ -87,19 +91,19 @@ public class UsersTeams {
         for (int riderPos = 1; riderPos < maxSizeOfTeam; riderPos++) {
             output.append("<tr>");
             for (int teamPos = 0; teamPos < usersTeams.size(); teamPos++) {
-                String ridername = "";
+                String riderName = "";
                 try {
-                    ridername = usersTeams.get(teamPos).get(riderPos);
+                    riderName = usersTeams.get(teamPos).get(riderPos);
                 } catch (IndexOutOfBoundsException ioobException) {
-                    // No need to do anything, as ridername is already empty;
+                    // No need to do anything, as riderName is already empty;
                 }
-                if (ridername.startsWith(TRANSFER_SIGNAL)) {
-                    ridername = ridername.substring(TRANSFER_SIGNAL.length());
+                if (riderName.startsWith(TRANSFER_SIGNAL)) {
+                    riderName = riderName.substring(TRANSFER_SIGNAL.length());
                     output.append("<td bgcolor=\"#D7BDE2\">");
                 } else {
                     output.append("<td>");
                 }
-                output.append(ridername).append("</td>");
+                output.append(riderName).append("</td>");
             }
             output.append("</tr>");
         }
@@ -108,7 +112,12 @@ public class UsersTeams {
     }
 
     public void alignTeams() {
-        if (usersTeams.isEmpty()) return;
+        logger.info("Aligning Teams");
+
+        if (usersTeams.isEmpty()) {
+            logger.info("Team list is empty, finishing.");
+            return;
+        }
 
         Map<String, String> transferRecordsMap = new HashMap<>();
         Map<String, Integer> riderToOccurrencesMap = new TreeMap<>();
@@ -171,6 +180,7 @@ public class UsersTeams {
 
         // Reassign the AlignedUsers teams.
         usersTeams = alignedUsersTeams.usersTeams;
+        logger.info("Finished Aligning Teams");
     }
 
     private String riderNameWithoutTransferSignal(String rider) {

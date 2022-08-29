@@ -27,7 +27,7 @@ public class TransferSeleniumComponent {
 
     private final Logger logger = LoggerFactory.getLogger(TransferSeleniumComponent.class);
 
-    public String getTransfers() {
+    public List<UserTransfer> getTransfers() {
 
         // Open website and login.
         WebDriver transfersWebDriver = commonWebDriverOperations.getWebDriverHeadless();
@@ -52,14 +52,7 @@ public class TransferSeleniumComponent {
         commonWebsiteOperations.logout(transfersWebDriver);
         transfersWebDriver.quit();
 
-        // Prepare Output
-        StringBuilder output = new StringBuilder("<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>");
-        usersAndTransfers.forEach(userTransfer -> {
-            if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
-        });
-        output.append("</p></body></html>");
-
-        return output.toString();
+        return usersAndTransfers;
     }
 
     private String determineLatestStage(WebDriver transfersWebDriver, boolean isRaceOver) {

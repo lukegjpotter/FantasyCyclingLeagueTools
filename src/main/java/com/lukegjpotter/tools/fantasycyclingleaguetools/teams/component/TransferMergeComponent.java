@@ -20,7 +20,7 @@ public class TransferMergeComponent {
         transfersHtmlSource = transfersHtmlSource.substring(substringStart, substringEnd);
         transfersHtmlSource = transfersHtmlSource.replace("<br>", "\n");
         Scanner transfersScanner = new Scanner(transfersHtmlSource);
-        String username = "", riderOut = "", riderIn = "";
+        String username = "", riderOut = "", riderIn = "", transferDelimiter = "->";
 
         while (transfersScanner.hasNextLine()) {
 
@@ -28,9 +28,9 @@ public class TransferMergeComponent {
 
             if (line.contains("(")) {
                 username = line.split("\\(", 2)[0].trim();
-            } else if (line.contains("->")) {
-                riderOut = line.split("->")[0].trim();
-                riderIn = line.split("->")[1].trim();
+            } else if (line.contains(transferDelimiter)) {
+                riderOut = line.split(transferDelimiter)[0].trim();
+                riderIn = line.split(transferDelimiter)[1].trim();
             }
 
             if (!username.isEmpty() && !riderOut.isEmpty() && !riderIn.isEmpty()) {
