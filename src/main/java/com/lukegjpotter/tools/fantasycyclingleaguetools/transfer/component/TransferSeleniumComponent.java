@@ -119,7 +119,6 @@ public class TransferSeleniumComponent {
 
             // Remove the Table Headers.
             transferTableRows.remove(0);
-            logger.info("transferTableRows are: " + transferTableRows);
 
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
