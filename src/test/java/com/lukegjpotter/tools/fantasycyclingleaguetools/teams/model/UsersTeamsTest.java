@@ -341,4 +341,47 @@ class UsersTeamsTest {
 
         assertEquals(expected, actual, "Expected not equals actual");
     }
+
+    @Test
+    void testAlignTeams_transfersMultiplePerUser_threeTeams_fiveRiders() {
+        // Setup
+        usersTeams.addUser("user1");
+        usersTeams.addRidertoUsersTeam("user1", "Roglic");
+        usersTeams.addRidertoUsersTeam("user1", "Mas");
+        usersTeams.addRidertoUsersTeam("user1", "Carapaz");
+        usersTeams.addRidertoUsersTeam("user1", "Vine");
+        usersTeams.addRidertoUsersTeam("user1", "Jai");
+        usersTeams.addUser("user2");
+        usersTeams.addRidertoUsersTeam("user2", "Mas");
+        usersTeams.addRidertoUsersTeam("user2", "Roglic");
+        usersTeams.addRidertoUsersTeam("user2", "De Gendt");
+        usersTeams.addRidertoUsersTeam("user2", "Remco");
+        usersTeams.addRidertoUsersTeam("user2", "Bennet");
+        usersTeams.addUser("user3");
+        usersTeams.addRidertoUsersTeam("user3", "Jai");
+        usersTeams.addRidertoUsersTeam("user3", "Ayuso");
+        usersTeams.addRidertoUsersTeam("user3", "Roglic");
+        usersTeams.addRidertoUsersTeam("user3", "Remco");
+        usersTeams.addRidertoUsersTeam("user3", "Pedro");
+        // Change - add the transfers
+        usersTeams.replaceRiderForUsersTeam("user1", "Vine", "Carthy");
+        usersTeams.replaceRiderForUsersTeam("user2", "Remco", "Jai");
+        usersTeams.replaceRiderForUsersTeam("user3", "Pedro", "Carthy");
+        usersTeams.replaceRiderForUsersTeam("user3", "Remco", "Arensman");
+        // Execute
+        usersTeams.alignTeams();
+
+        String expected = "<table>" +
+                "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
+                "<tr><td>Jai</td><td bgcolor=\"#D7BDE2\">Jai</td><td>Jai</td></tr>" +
+                "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
+                "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td></td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +
+                "<tr><td>Mas</td><td>Mas</td><td></td></tr>" +
+                "<tr><td>Carapaz</td><td>Bennet</td><td bgcolor=\"#D7BDE2\">Arensman</td></tr>" +
+                "<tr><td></td><td>De Gendt</td><td>Ayuso</td></tr>" +
+                "</table>";
+        String actual = usersTeams.toString();
+
+        assertEquals(expected, actual, "Expected not equals actual");
+    }
 }

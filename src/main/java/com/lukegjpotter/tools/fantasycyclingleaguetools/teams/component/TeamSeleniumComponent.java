@@ -58,7 +58,6 @@ public class TeamSeleniumComponent {
         String transfersHtmlSource = transferService.getTransfers();
         usersTeams = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams);
 
-        // FixMe Teams with multiple transfers do not have more then one coloured.
         // Align Teams
         usersTeams.alignTeams();
 

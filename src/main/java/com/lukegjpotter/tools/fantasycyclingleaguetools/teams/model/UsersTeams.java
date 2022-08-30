@@ -119,7 +119,7 @@ public class UsersTeams {
             return;
         }
 
-        Map<String, String> transferRecordsMap = new HashMap<>();
+        Map<String, List<String>> transferRecordsMap = new HashMap<>();
         Map<String, Integer> riderToOccurrencesMap = new TreeMap<>();
 
         /* Count Unique Riders and count Occurrences
@@ -130,7 +130,13 @@ public class UsersTeams {
 
                 if (riderName.startsWith(TRANSFER_SIGNAL)) {
                     riderName = riderNameWithoutTransferSignal(riderName);
-                    transferRecordsMap.put(userTeam.get(0), riderName);
+                    String username = userTeam.get(0);
+
+                    if (!transferRecordsMap.containsKey(username)) {
+                        // create the list in the record.
+                        transferRecordsMap.put(username, new ArrayList<>());
+                    }
+                    transferRecordsMap.get(username).add(riderName);
                 }
 
                 int currentOccurrencesOfRider = 0;
@@ -176,7 +182,12 @@ public class UsersTeams {
         }
 
         // Reapply the TRANSFER_SIGNAL.
-        transferRecordsMap.keySet().forEach(username -> alignedUsersTeams.replaceRiderForUsersTeam(username, transferRecordsMap.get(username), transferRecordsMap.get(username)));
+        for (String username : transferRecordsMap.keySet()) {
+            for (String riderName : transferRecordsMap.get(username)) {
+                alignedUsersTeams.replaceRiderForUsersTeam(username, riderName, riderName);
+            }
+        }
+
 
         // Reassign the AlignedUsers teams.
         usersTeams = alignedUsersTeams.usersTeams;
