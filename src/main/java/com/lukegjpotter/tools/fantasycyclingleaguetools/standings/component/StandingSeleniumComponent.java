@@ -49,7 +49,7 @@ public class StandingSeleniumComponent {
         // Loop - Extract Position, Name and Total Score.
         for (WebElement ridersStanding : standingsTableRows) {
             List<WebElement> standingsTableFields = ridersStanding.findElements(By.tagName("td"));
-            String username = standingsTableFields.get(1).getText().trim().split(" {4}")[1];
+            String username = commonWebsiteOperations.getUsernameFromLeagueTable(standingsTableFields);
             logger.info("Checking Standings for: {}", username);
 
             // Open Popup, wait for it to load, read the Score, Close Popup

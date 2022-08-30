@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CommonWebsiteOperations {
 
@@ -52,5 +54,9 @@ public class CommonWebsiteOperations {
     public void viewLeague(WebDriver webDriver) {
         logger.info("Viewing League: {}", env.getProperty("ROADCC_LEAGUE_NAME"));
         webDriver.findElement(By.id("leaguelist-current")).findElement(By.partialLinkText(env.getProperty("ROADCC_LEAGUE_NAME"))).click();
+    }
+
+    public String getUsernameFromLeagueTable(List<WebElement> tableFields) {
+        return tableFields.get(1).getText().trim().split(" {4}")[1];
     }
 }

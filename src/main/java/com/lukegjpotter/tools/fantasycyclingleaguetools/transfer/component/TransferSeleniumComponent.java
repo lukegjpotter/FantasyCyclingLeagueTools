@@ -107,6 +107,8 @@ public class TransferSeleniumComponent {
             // Avoids a Stale Element issue.
             transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
 
+            // TODO - Add Get Username to CommonWebsiteOperations.
+            // String username = commonWebsiteOperations.getUsernameFromLeagueTable(standingsTableFields);
             String username = transfersWebDriver.findElement(By.className("gamewindow-title")).getText().trim().split(":")[1].trim();
             logger.info("Viewing User: {}", username);
             UserTransfer userTransfer = new UserTransfer(username);
@@ -120,6 +122,11 @@ public class TransferSeleniumComponent {
 
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
+                /* FixMe Reverse the order of the transfers, as its providing an incorrect result to the /teams endpoint.
+                 * This is in the case of Mas -> Affini and Affini -> Ayuso, in the case that a rider abandons after the
+                 * initial transfer has been made.
+                 * Possibly remove the unneeded entries on the list. */
+                // ToDo Add Transfers Remaining to the User's names.
                 String stage = transferFields.get(1).getText().trim();
                 if (stage.equalsIgnoreCase(todaysStageNumber)) {
                     String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[1];

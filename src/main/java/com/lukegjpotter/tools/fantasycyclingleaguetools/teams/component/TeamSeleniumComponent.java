@@ -58,6 +58,7 @@ public class TeamSeleniumComponent {
         String transfersHtmlSource = transferService.getTransfers();
         usersTeams = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams);
 
+        // FixMe Teams with multiple transfers do not have more then one coloured.
         // Align Teams
         usersTeams.alignTeams();
 
@@ -76,7 +77,7 @@ public class TeamSeleniumComponent {
         // Loop - Click on Total Score, Read Rider's Surnames.
         for (WebElement ridersStanding : standingsTableRows) {
             List<WebElement> standingsTableFields = ridersStanding.findElements(By.tagName("td"));
-            String username = standingsTableFields.get(1).getText().trim().split(" {4}")[1];
+            String username = commonWebsiteOperations.getUsernameFromLeagueTable(standingsTableFields);
             logger.info("Checking Team for: {}", username);
             usersTeams.addUser(username);
 
