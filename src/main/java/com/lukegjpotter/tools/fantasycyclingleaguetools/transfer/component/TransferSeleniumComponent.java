@@ -119,20 +119,21 @@ public class TransferSeleniumComponent {
 
             // Remove the Table Headers.
             transferTableRows.remove(0);
+            logger.info("transferTableRows are: " + transferTableRows);
 
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
-                /* FixMe Reverse the order of the transfers, as its providing an incorrect result to the /teams endpoint.
-                 * This is in the case of Mas -> Affini and Affini -> Ayuso, in the case that a rider abandons after the
-                 * initial transfer has been made.
-                 * Possibly remove the unneeded entries on the list. */
                 // ToDo Add Transfers Remaining to the User's names.
                 String stage = transferFields.get(1).getText().trim();
                 if (stage.equalsIgnoreCase(todaysStageNumber)) {
                     String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[1];
                     String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[1];
                     userTransfer.addTransfer(riderOut + " -> " + riderIn);
-                } else {
+                } else { // We've finished getting the transfers for the Stage.
+                    /* Reverse the order of the transfers, as its providing an incorrect result to the /teams endpoint.
+                     * This is in the case of Mas -> Affini and Affini -> Ayuso, in the case that a rider abandons after
+                     * the initial transfer has been made. */
+                    userTransfer.reverseTransferOrder();
                     usersAndTransfers.add(userTransfer);
                     break;
                 }

@@ -40,4 +40,21 @@ class UserTransferTest {
 
         assertEquals(expected, actual, "Actual was: " + actual + ".");
     }
+
+    @Test
+    void reverseTransferOrder() {
+        UserTransfer userTransfer = new UserTransfer("luke");
+        userTransfer.addTransfer("abandon -> replacement");
+        userTransfer.addTransfer("random -> transfer");
+        userTransfer.addTransfer("original -> abandon");
+        userTransfer.reverseTransferOrder();
+
+        String expected = "luke (3)<br>" +
+                "original -> abandon<br>" +
+                "random -> transfer<br>" +
+                "abandon -> replacement<br>";
+        String actual = userTransfer.toString();
+
+        assertEquals(expected, actual, "Actual was: " + actual + ".");
+    }
 }

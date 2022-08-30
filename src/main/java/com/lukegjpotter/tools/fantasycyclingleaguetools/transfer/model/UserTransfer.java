@@ -1,6 +1,7 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserTransfer {
@@ -21,6 +22,10 @@ public class UserTransfer {
         return !transfers.isEmpty();
     }
 
+    public void reverseTransferOrder() {
+        Collections.reverse(transfers);
+    }
+
     @Override
     public String toString() {
 
@@ -29,4 +34,6 @@ public class UserTransfer {
 
         return (username + " (" + transfers.size() + ")<br>" + transfersAsString).trim();
     }
+
+
 }
