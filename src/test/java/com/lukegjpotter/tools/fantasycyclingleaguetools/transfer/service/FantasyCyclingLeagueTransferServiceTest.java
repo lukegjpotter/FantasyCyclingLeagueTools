@@ -43,10 +43,11 @@ class FantasyCyclingLeagueTransferServiceTest {
         List<UserTransfer> userTransfers = new ArrayList<>();
         UserTransfer userTransfer = new UserTransfer("Johnny");
         userTransfer.addTransfer("Bob -> Ligma");
+        userTransfer.setUsedTransfers(1);
         userTransfers.add(userTransfer);
         Mockito.when(transferSeleniumComponent.getTransfers()).thenReturn(userTransfers);
 
-        String expected = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>Johnny (1)<br>Bob -> Ligma<br><br><br></p></body></html>";
+        String expected = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>Johnny<br>Today: 1 | Remaining: 44<br>Bob -> Ligma<br><br><br></p></body></html>";
         String actual = transferService.getTransfers();
 
         assertEquals(expected, actual, "Mocked Object not working.");

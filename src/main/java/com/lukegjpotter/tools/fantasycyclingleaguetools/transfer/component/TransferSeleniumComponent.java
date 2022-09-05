@@ -38,14 +38,15 @@ public class TransferSeleniumComponent {
         boolean isRaceOver = commonWebsiteOperations.selectCompetition(transfersWebDriver);
 
         // Determine the Latest Stage
-        String todaysStageNumber = determineLatestStage(transfersWebDriver, isRaceOver);
+        String[] raceNameStageNumber = determineLatestStage(transfersWebDriver, isRaceOver);
+        String todaysStageNumber = raceNameStageNumber[0] + " " + raceNameStageNumber[1];
         logger.info("Latest Stage is {}", todaysStageNumber);
 
         // View League
         commonWebsiteOperations.viewLeague(transfersWebDriver);
 
         // Open Each User
-        List<UserTransfer> usersAndTransfers = viewUsersAndGetTransfers(transfersWebDriver, todaysStageNumber);
+        List<UserTransfer> usersAndTransfers = viewUsersAndGetTransfers(transfersWebDriver, raceNameStageNumber);
 
         // Clean Up
         logger.info("Finished getting the Transfers for {}", todaysStageNumber);
@@ -55,7 +56,7 @@ public class TransferSeleniumComponent {
         return usersAndTransfers;
     }
 
-    private String determineLatestStage(WebDriver transfersWebDriver, boolean isRaceOver) {
+    private String[] determineLatestStage(WebDriver transfersWebDriver, boolean isRaceOver) {
         logger.info("Determining Latest Stage");
 
         /* The touchcarousel-item element will return the three displayed stages.
@@ -93,11 +94,14 @@ public class TransferSeleniumComponent {
 
         String raceName = transfersWebDriver.findElement(By.id("compnav")).findElement(By.className("content")).findElement(By.tagName("H1")).getText().split("-")[0].trim().toLowerCase();
 
-        return raceName + " " + todaysStageNumber.toLowerCase();
+        return new String[]{raceName, todaysStageNumber.toLowerCase()};
+        // For Local Testing.
+        //return new String[]{raceName, "stage 15"};
     }
 
-    private List<UserTransfer> viewUsersAndGetTransfers(WebDriver transfersWebDriver, String todaysStageNumber) {
+    private List<UserTransfer> viewUsersAndGetTransfers(WebDriver transfersWebDriver, String[] raceNameStageNumber) {
         logger.info("Viewing User Profiles");
+        String todaysStageNumber = raceNameStageNumber[0] + " " + raceNameStageNumber[1];
         List<UserTransfer> usersAndTransfers = new ArrayList<>();
 
         int numberOfAnchorTags = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).size();
@@ -119,9 +123,19 @@ public class TransferSeleniumComponent {
             // Remove the Table Headers.
             transferTableRows.remove(0);
 
+            int usedTransfers = 0;
+            String raceName = raceNameStageNumber[0];
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
-                // ToDo Add Transfers Remaining to the User's names.
+                String stage = transferFields.get(1).getText().trim().toLowerCase();
+
+                if (stage.startsWith(raceName)) usedTransfers++;
+                else break;
+            }
+            userTransfer.setUsedTransfers(usedTransfers);
+
+            for (WebElement transferTableRow : transferTableRows) {
+                List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
                 if (stage.equalsIgnoreCase(todaysStageNumber)) {
                     String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[1];
