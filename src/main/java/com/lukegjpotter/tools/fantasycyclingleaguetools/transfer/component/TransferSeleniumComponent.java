@@ -6,12 +6,15 @@ import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.model.UserTrans
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,28 +70,38 @@ public class TransferSeleniumComponent {
         List<WebElement> stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
 
         // FixMe - This will break for stage 21, as I will click it back one and 21 will disspear.
+        //String currentStage = transfersWebDriver.findElement(By.className(".scr-stagemarker.current")).getText().trim();
+        WebElement stageCarouselWebElement = new WebDriverWait(transfersWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class=\"scr-stagemarker current\"]")));
+        //String currentStage = transfersWebDriver.findElement(By.xpath("//span[@class=\"scr-stagemarker current\"]")).getText().trim();
+        String currentStage = stageCarouselWebElement.getText().trim();
+        logger.info("Test - Current Stage = {}", currentStage);
+        String todaysStageNumber = "", stage21 = "Stage 21";
+
         if (isRaceOver) {
             // Click the right arrow the stagesCarouselList.size, number of times to get to the latest stages.
             WebElement rightButton = transfersWebDriver.findElement(By.cssSelector(".arrow-holder.right"));
             for (int i = 0; i < stagesCarouselList.size(); i++) {
                 rightButton.click();
             }
+        } else if (currentStage.equals(stage21)) {
+            todaysStageNumber = stage21;
         } else {
             // Go back by one stage, then read the list.
             transfersWebDriver.findElement(By.cssSelector(".arrow-holder.left")).click();
         }
 
-        stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
+        if (todaysStageNumber.isEmpty()) {
+            stagesCarouselList = transfersWebDriver.findElements(By.className("touchcarousel-item"));
 
-        String todaysDate = new SimpleDateFormat("EEEEE dd MMMMM", new Locale("en", "UK")).format(new Date());
-        String todaysStageNumber = "";
+            String todaysDate = new SimpleDateFormat("EEEEE dd MMMMM", new Locale("en", "UK")).format(new Date());
 
-        for (WebElement stageElement : stagesCarouselList) {
-            String stageDate = stageElement.findElement(By.className("scr-details")).getText().trim().split("\n")[0];
-            todaysStageNumber = stageElement.findElement(By.className("scr-stagemarker")).getText().trim();
+            for (WebElement stageElement : stagesCarouselList) {
+                String stageDate = stageElement.findElement(By.className("scr-details")).getText().trim().split("\n")[0];
+                todaysStageNumber = stageElement.findElement(By.className("scr-stagemarker")).getText().trim();
 
-            if (stageDate.equals(todaysDate)) {
-                break;
+                if (stageDate.equals(todaysDate)) {
+                    break;
+                }
             }
         }
 
@@ -150,7 +163,7 @@ public class TransferSeleniumComponent {
                     String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[1];
                     userTransfer.addTransfer(riderOut + " -> " + riderIn);
                 } else { // We've finished getting the transfers for the Stage.
-                    /* Reverse the order of the transfers, as its providing an incorrect result to the /teams endpoint.
+                    /* Reverse the order of the transfers, as it's providing an incorrect result to the /teams endpoint.
                      * This is in the case of Mas -> Affini and Affini -> Ayuso, in the case that a rider abandons after
                      * the initial transfer has been made. */
                     userTransfer.reverseTransferOrder();
