@@ -93,7 +93,6 @@ public class TransferSeleniumComponent {
 
         String raceName = transfersWebDriver.findElement(By.id("compnav")).findElement(By.className("content")).findElement(By.tagName("H1")).getText().split("-")[0].trim().toLowerCase();
 
-
         return raceName + " " + todaysStageNumber.toLowerCase();
     }
 

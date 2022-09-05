@@ -34,6 +34,4 @@ public class UserTransfer {
 
         return (username + " (" + transfers.size() + ")<br>" + transfersAsString).trim();
     }
-
-
 }
