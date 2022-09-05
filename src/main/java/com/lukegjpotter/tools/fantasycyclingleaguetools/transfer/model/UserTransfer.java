@@ -40,7 +40,7 @@ public class UserTransfer {
         if (hasTransfers()) transfers.forEach(transfer -> transfersAsString.append(transfer).append("<br>"));
         int remainingTransfers = MAX_TRANSFERS - usedTransfers;
 
-        return (username + "<br>"
+        return ("<strong>" + username + "</strong><br>"
                 + "Today: " + transfers.size() + " | Remaining: " + remainingTransfers + "<br>"
                 + transfersAsString).trim();
     }

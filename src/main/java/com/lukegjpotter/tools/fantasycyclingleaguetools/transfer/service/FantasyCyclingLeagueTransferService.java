@@ -19,9 +19,7 @@ public class FantasyCyclingLeagueTransferService {
 
         // Prepare Output
         StringBuilder output = new StringBuilder("<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>");
-        usersAndTransfers.forEach(userTransfer -> {
-            if (userTransfer.hasTransfers()) output.append(userTransfer).append("<br><br>");
-        });
+        usersAndTransfers.forEach(userTransfer -> output.append(userTransfer).append("<br><br>"));
         output.append("</p></body></html>");
 
         return output.toString();

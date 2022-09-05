@@ -104,17 +104,25 @@ public class TransferSeleniumComponent {
         String todaysStageNumber = raceNameStageNumber[0] + " " + raceNameStageNumber[1];
         List<UserTransfer> usersAndTransfers = new ArrayList<>();
 
+        // Read the League Table
+        List<String> usernames = new ArrayList<>();
+        List<WebElement> standingsTableRows = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
+        standingsTableRows.remove(0); // Remove the Table Header Row.
+        for (WebElement standingsTableRow : standingsTableRows) {
+            List<WebElement> standingsTableFields = standingsTableRow.findElements(By.tagName("td"));
+            usernames.add(commonWebsiteOperations.getUsernameFromLeagueTable(standingsTableFields));
+        }
+
         int numberOfAnchorTags = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).size();
         // User every second entry, as the other ones are a score link.
         for (int i = 0; i < numberOfAnchorTags; i += 2) {
-            // Avoids a Stale Element issue.
-            transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
+            String username = usernames.get(i / 2);
 
-            // TODO - Add Get Username to CommonWebsiteOperations.
-            // String username = commonWebsiteOperations.getUsernameFromLeagueTable(standingsTableFields);
-            String username = transfersWebDriver.findElement(By.className("gamewindow-title")).getText().trim().split(":")[1].trim();
             logger.info("Viewing User: {}", username);
             UserTransfer userTransfer = new UserTransfer(username);
+
+            // Avoids a Stale Element issue.
+            transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(i).click();
 
             // Expand Transfers
             transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.tagName("a")).click();

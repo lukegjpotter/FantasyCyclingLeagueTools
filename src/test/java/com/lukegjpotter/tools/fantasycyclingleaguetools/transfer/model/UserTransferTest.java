@@ -14,7 +14,7 @@ class UserTransferTest {
         userTransfer.addTransfer("tom -> harry");
         userTransfer.setUsedTransfers(1);
 
-        String expected = "luke<br>" +
+        String expected = "<strong>luke</strong><br>" +
                 "Today: 1 | Remaining: 44<br>" +
                 "tom -> harry<br>";
         String actual = userTransfer.toString();
@@ -26,7 +26,7 @@ class UserTransferTest {
     void testToString_zeroTransfers() {
         UserTransfer userTransfer = new UserTransfer("luke");
 
-        String expected = "luke<br>" +
+        String expected = "<strong>luke</strong><br>" +
                 "Today: 0 | Remaining: 45<br>";
         String actual = userTransfer.toString();
 
@@ -40,7 +40,7 @@ class UserTransferTest {
         userTransfer.addTransfer("tom -> harry");
         userTransfer.setUsedTransfers(2);
 
-        String expected = "luke<br>" +
+        String expected = "<strong>luke</strong><br>" +
                 "Today: 2 | Remaining: 43<br>" +
                 "tom -> harry<br>tom -> harry<br>";
         String actual = userTransfer.toString();
@@ -57,7 +57,7 @@ class UserTransferTest {
         userTransfer.reverseTransferOrder();
         userTransfer.setUsedTransfers(3);
 
-        String expected = "luke<br>" +
+        String expected = "<strong>luke</strong><br>" +
                 "Today: 3 | Remaining: 42<br>" +
                 "original -> abandon<br>" +
                 "random -> transfer<br>" +
