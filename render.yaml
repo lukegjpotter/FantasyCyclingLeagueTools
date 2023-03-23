@@ -11,11 +11,12 @@ services:
     plan: free
     healthCheckPath: /health
     numInstances: 1
+    autoDeploy: false
     envVars:
       - key: ROADCC_LEAGUE_NAME
-        value: yourLeagueName
+        sync: false
       - key: ROADCC_USERNAME
-        value: yourUsername
+        sync: false
       - key: ROADCC_PASSWORD
-        value: yourPassword
+        sync: false
 
