@@ -3,7 +3,7 @@
 # Schema documented at https://render.com/docs/yaml-spec
 services:
   - type: web
-    name: fantasy-cycling-league-tools
+    name: FantasyCyclingLeagueTools
     env: docker
     repo: https://github.com/lukegjpotter/FantasyCyclingLeagueTools.git
     dockerfilePath: Dockerfile
