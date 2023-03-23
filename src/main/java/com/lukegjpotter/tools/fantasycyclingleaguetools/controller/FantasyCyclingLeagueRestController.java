@@ -38,4 +38,10 @@ public class FantasyCyclingLeagueRestController {
         logger.info("Endpoint teams called");
         return teamsService.getTeams();
     }
+
+    @GetMapping("health")
+    public String getHealth() {
+        logger.info("Endpoint health called");
+        return "OK";
+    }
 }

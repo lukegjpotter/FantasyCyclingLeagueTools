@@ -19,4 +19,4 @@ COPY build/libs/fantasy-cycling-league-tools-0.0.1-SNAPSHOT.jar /app/fantasy-cyc
 EXPOSE 8080
 
 # Start the Spring Boot app
-CMD ["java", "-jar", "fantasy-cycling-league-tools.jar"]
+CMD ["java", "-jar", "/app/fantasy-cycling-league-tools.jar"]
