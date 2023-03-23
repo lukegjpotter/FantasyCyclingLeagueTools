@@ -2,17 +2,22 @@
 # https://www.npmjs.com/package/@renderinc/heroku-import
 # Schema documented at https://render.com/docs/yaml-spec
 services:
-  - type: web # valid values: https://render.com/docs/yaml-spec#type
+  - type: web
     name: fantasy-cycling-league-tools
-    env: docker # valid values: https://render.com/docs/yaml-spec#environment
-    dockerfilePath: Dockerfile.render
-    plan: free # optional; defaults to starter
+    env: docker
+    repo: https://github.com/lukegjpotter/FantasyCyclingLeagueTools.git
+    dockerfilePath: /
+    region: frankfurt
+    plan: free
     numInstances: 1
     envVars:
-      - key: ROADCC_LEAGUE_NAME # Imported from Heroku app
-        value: Wednesday Warrior
-      - key: ROADCC_USERNAME # Imported from Heroku app
-        value: lukegjpotter
+      - key: ROADCC_LEAGUE_NAME
+        value: yourLeagueName
+        sync: false
+      - key: ROADCC_USERNAME
+        value: yourUsername
+        sync: false
       - key: ROADCC_PASSWORD
-        value: test
+        value: yourPassword
+        sync: false
 
