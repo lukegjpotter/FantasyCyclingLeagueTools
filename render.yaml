@@ -6,7 +6,7 @@ services:
     name: fantasy-cycling-league-tools
     env: docker
     repo: https://github.com/lukegjpotter/FantasyCyclingLeagueTools.git
-    dockerfilePath: /
+    dockerfilePath: Dockerfile
     region: frankfurt
     plan: free
     numInstances: 1
