@@ -13,7 +13,7 @@ COPY src /app/src
 RUN gradle build
 
 # Copy the built JAR file to the container
-COPY /app/build/libs/fantasy-cycling-league-tools-0.0.1-SNAPSHOT.jar /app/fantasy-cycling-league-tools.jar
+COPY /build/libs/fantasy-cycling-league-tools-0.0.1-SNAPSHOT.jar /app/fantasy-cycling-league-tools.jar
 
 # Expose port 8080
 EXPOSE 8080
