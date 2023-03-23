@@ -2,11 +2,12 @@
   "name": "Fantasy Cycling League Tools",
   "description": "A suite of Spring Boot REST APIs for a Fantasy Cycling League.",
   "repository": "https://github.com/lukegjpotter/FantasyCyclingLeagueTools",
-  "logo": "https://www.w3.org/html/logo/badge/html5-badge-h-solo.png",
+  "logo": "https://repository-images.githubusercontent.com/520830250/e1a836ff-7c58-4bdc-b09a-c3f810f097f4",
   "website": "https://lukegjpotter.com/",
   "keywords": [
     "java",
     "spring-boot",
+    "chromedriver",
     "selenium"
   ],
   "env": {
