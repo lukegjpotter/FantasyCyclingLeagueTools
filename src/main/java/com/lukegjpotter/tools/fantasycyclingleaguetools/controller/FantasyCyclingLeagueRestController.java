@@ -41,7 +41,7 @@ public class FantasyCyclingLeagueRestController {
 
     @GetMapping("health")
     public String getHealth() {
-        logger.info("Endpoint health called");
+        logger.trace("Endpoint health called");
         return "OK";
     }
 }
