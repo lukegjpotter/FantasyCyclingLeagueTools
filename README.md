@@ -31,21 +31,21 @@ Records. This is a pending action.
 ### Terminal or CLI
 
 You can run this in your Terminal by editing the `setEnvironmentalVariables.sh` or `setEnvironmentalVariables.bat`
-files to set the three Environmental Variables to your values.
+files to set the three Environmental Variables to your values.  
+Be wary not to commit the updated file to a public Git Repo. Consider adding it to the `.gitignore` file.
 
 Then executing
 
-    ./setEnvironmentalVariables.sh
+    source setEnvironmentalVariables.sh
     ./gradlew build bootRun
 
 or with Docker:
 
-    docker build --tag fantasy-cycling-tools .
-    docker run -p 8080:8080 fantasy-cycling-tools \
-      --name fantasy-cycling \
-      -e ROADCC_USERNAME='yourusername' \
-      -e ROADCC_PASSWORD='yourpassword' \
-      -e ROADCC_LEAGUE_NAME='yourleaguename'
+    docker build -t fantasy-cycling-tools:latest .
+    docker run -p 8080:8080 -d fantasy-cycling-tools:latest \
+      --env=ROADCC_USERNAME='yourUsername' \
+      --env=ROADCC_PASSWORD='yourPassword' \
+      --env=ROADCC_LEAGUE_NAME='Your League Name'
 
 ### IDE
 
