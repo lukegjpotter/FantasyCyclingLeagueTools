@@ -64,4 +64,12 @@ class FantasyCyclingLeagueRestControllerTest {
 
         assertEquals(expected, actual, "Mocked Teams Service is not correct");
     }
+
+    @Test
+    void getHealth() {
+        String expected = "OK";
+        String actual = restController.getHealth();
+
+        assertEquals(expected, actual, "Health Service is not correct");
+    }
 }
