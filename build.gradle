@@ -25,3 +25,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Remove the *-plain.jar file from being created.
+jar {
+    enabled = false
+}
