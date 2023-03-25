@@ -21,10 +21,41 @@ Group at the call of a REST Endpoint.
 * Get League Standings Including Today's scores.
 * Get Current Teams
 
-## Pending APIs
+## Pending Tasks
 
+There are a horrid amount of Strings inside the Application. These need to be changed to POJOs, or possibly Java 17
+Records. This is a pending action.
 
 ## Build, Run and Test
+
+### Terminal or CLI
+
+You can run this in your Terminal by editing the `setEnvironmentalVariables.sh` or `setEnvironmentalVariables.bat`
+files to set the three Environmental Variables to your values.
+
+Then executing
+
+    ./setEnvironmentalVariables.sh
+    ./gradlew build bootRun
+
+or with Docker:
+
+    docker build --tag fantasy-cycling-tools .
+    docker run -p 8080:8080 fantasy-cycling-tools \
+      --name fantasy-cycling \
+      -e ROADCC_USERNAME='yourusername' \
+      -e ROADCC_PASSWORD='yourpassword' \
+      -e ROADCC_LEAGUE_NAME='yourleaguename'
+
+### IDE
+
+You can run this in your IDE by adding the Environment Variables to your Run Configurations.
+
+### Cloud Hosting Service
+
+Heroku and Render are supported. The Environment Variables are supplied in the relevant Config Files.
+
+### How To Test
 
 PostMan Collection: [JSON Format](https://www.getpostman.com/collections/6f8d705afefeb67c6aa8).
 

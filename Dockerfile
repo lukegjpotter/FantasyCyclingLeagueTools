@@ -2,28 +2,28 @@
 #
 # Build stage
 #
-# Use an official OpenJDK runtime as a parent image
+# Use JDK runtime as a parent image.
 FROM eclipse-temurin:17-jdk-alpine AS BuildStage
-# Set the working directory to /app
 ENV APP_HOME=/app/
+# Set the working directory to /app.
 WORKDIR $APP_HOME
-# Copy the Gradle build and Source code files to the container
+# Copy the Gradle build and Source code files to the Build Stage Container.
 COPY . $APP_HOME
-# Build the project with Gradle
+# Build the project with Gradle.
 RUN ./gradlew build
 
 #
 # Run stage
 #
-# Use an official OpenJDK runtime as a parent image
+# Use a JDK runtime as a parent image.
 FROM eclipse-temurin:17-jdk-alpine
-# Set the working directory to /app
-ENV ARTIFACT_NAME=fantasy-cycling-league-tools-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/app/
+# Create a Volume to persist the JAR file.
 VOLUME $APP_HOME
+# Copy the Build Stage JAR file to the Run Stage Container Volume.
+COPY --from=BuildStage $APP_HOME/build/libs/fantasy-cycling-league-tools-0.0.1-SNAPSHOT.jar $APP_HOME
+# Set the working directory to /app, so we don't need to prefix the CMD Layer with /app.
 WORKDIR $APP_HOME
-# Copy the built JAR file to the container
-COPY --from=BuildStage $APP_HOME/build/libs/$ARTIFACT_NAME $APP_HOME
 # Expose port 8080
 EXPOSE 8080
 # Start the Spring Boot app
