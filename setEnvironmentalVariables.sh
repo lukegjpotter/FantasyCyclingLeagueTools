@@ -24,5 +24,10 @@ echo " ${green}[info] Set ROADCC_PASSWORD to $ROADCC_PASSWORD ${reset}"
 
 # Set ROADCC_LEAGUE_NAME for local testing
 echo " [info] Setting ROADCC_LEAGUE_NAME"
-export ROADCC_LEAGUE_NAME='yourleaguename'
-echo " ${green}[info] Set ROADCC_LEAGUE_NAME to ROADCC_LEAGUE_NAME ${reset}"
+export ROADCC_LEAGUE_NAME='your league name'
+echo " ${green}[info] Set ROADCC_LEAGUE_NAME to $ROADCC_LEAGUE_NAME ${reset}"
+
+# Set IS_FANTASY_CYCLING_TOOLS_ON_DOCKER for local testing
+echo " [info] Setting IS_FANTASY_CYCLING_TOOLS_ON_DOCKER"
+export IS_FANTASY_CYCLING_TOOLS_ON_DOCKER='false'
+echo " ${green}[info] Set IS_FANTASY_CYCLING_TOOLS_ON_DOCKER to $IS_FANTASY_CYCLING_TOOLS_ON_DOCKER ${reset}"

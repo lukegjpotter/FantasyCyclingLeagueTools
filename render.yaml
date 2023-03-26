@@ -19,4 +19,6 @@ services:
         sync: false
       - key: ROADCC_PASSWORD
         sync: false
+      - key: IS_FANTASY_CYCLING_TOOLS_ON_DOCKER
+        value: 'true'
 

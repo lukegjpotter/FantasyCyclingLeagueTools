@@ -34,6 +34,9 @@ You can run this in your Terminal by editing the `setEnvironmentalVariables.sh` 
 files to set the three Environmental Variables to your values.  
 Be wary not to commit the updated file to a public Git Repo. Consider adding it to the `.gitignore` file.
 
+As this project uses Spring Boot 3, you need Java 17 to run it.  
+This project uses port 8080 by default, so ensure that it's free when you're trying to run it.
+
 Then executing
 
     source setEnvironmentalVariables.sh
@@ -42,14 +45,21 @@ Then executing
 or with Docker:
 
     docker build -t fantasy-cycling-tools:latest .
-    docker run -p 8080:8080 -d fantasy-cycling-tools:latest \
+    docker run --name fantasy_cycling \
+      -p 8080:8080 \
       --env=ROADCC_USERNAME='yourUsername' \
       --env=ROADCC_PASSWORD='yourPassword' \
-      --env=ROADCC_LEAGUE_NAME='Your League Name'
+      --env=ROADCC_LEAGUE_NAME='Your League Name' \
+      -d --rm fantasy-cycling-tools:latest
 
 ### IDE
 
 You can run this in your IDE by adding the Environment Variables to your Run Configurations.
+
+    IS_FANTASY_CYCLING_TOOLS_ON_DOCKER = false
+    ROADCC_USERNAME = yourUsername
+    ROADCC_PASSWORD = yourPassword
+    ROADCC_LEAGUE_NAME = Your League Name
 
 ### Cloud Hosting Service
 

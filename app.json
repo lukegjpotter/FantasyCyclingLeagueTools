@@ -13,7 +13,8 @@
   "env": {
     "ROADCC_USERNAME": "yourusername",
     "ROADCC_PASSWORD": "yourpassword",
-    "ROADCC_LEAGUE_NAME": "yourleaduename"
+    "ROADCC_LEAGUE_NAME": "your leadue name",
+    "IS_FANTASY_CYCLING_TOOLS_ON_DOCKER": "false"
   },
   "buildpacks": [
     {
