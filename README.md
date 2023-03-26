@@ -69,4 +69,4 @@ Heroku and Render are supported. The Environment Variables are supplied in the r
 
 PostMan Collection: [JSON Format](https://www.getpostman.com/collections/6f8d705afefeb67c6aa8).
 
-Swagger UI is Enabled: [Localhost](http://localhost:8080/swagger-ui/index.html#/).
+Swagger UI is Enabled: [Localhost](http://localhost:8080/swagger-ui/index.html).
