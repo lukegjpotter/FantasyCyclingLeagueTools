@@ -3,6 +3,9 @@
 # Build stage
 #
 # Use JDK runtime as a parent image.
+# TODO: Remove trailing slashes on APP_HOME.
+# TODO: Try to reduce download time and gradle deamon start time:
+# TODO: FROM gradle:7.6.1-jdk17-alpine AS BuildStage
 FROM eclipse-temurin:17-jdk-alpine AS BuildStage
 ENV APP_HOME=/app/
 # Set the working directory to /app.

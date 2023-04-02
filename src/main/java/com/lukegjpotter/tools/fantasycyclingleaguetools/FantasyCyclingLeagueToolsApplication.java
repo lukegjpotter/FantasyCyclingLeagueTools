@@ -35,6 +35,8 @@ public class FantasyCyclingLeagueToolsApplication {
             public void run(String... args) throws Exception {
                 // Chromium is only available on Alpine Linux Package Manager.
                 String isFantasyCyclingToolsOnDocker = "false";
+
+                // TODO: Use Optional here.
                 if (env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER") != null)
                     isFantasyCyclingToolsOnDocker = env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER");
 
