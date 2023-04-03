@@ -13,7 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-import java.util.Optional;
+import static java.util.Optional.ofNullable;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Fantasy Cycling League Tools API", version = "0.0.1", description = "A suite of Spring Boot REST APIs for a Fantasy Cycling League."))
@@ -33,10 +33,12 @@ public class FantasyCyclingLeagueToolsApplication {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
+            checkEnvironmentVariablesAreSet();
+
             /* Chromium is only available on Alpine Linux Package Manager.
              * Chrome is not supported on Alpine Image. */
             boolean isFantasyCyclingToolsOnDocker =
-                    Boolean.parseBoolean(Optional.ofNullable(
+                    Boolean.parseBoolean(ofNullable(
                             env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER")).orElse("false"));
 
             if (isFantasyCyclingToolsOnDocker) {
@@ -47,5 +49,28 @@ public class FantasyCyclingLeagueToolsApplication {
                 WebDriverManager.chromedriver().setup();
             }
         };
+    }
+
+    private void checkEnvironmentVariablesAreSet() {
+        logger.info("Checking Environment Variables");
+
+        // Not a big deal if not specified.
+        logger.info("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER: {}",
+                ofNullable(env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER")).orElse("false"));
+
+        // Big deal if not specified.
+        String roadccUsername = ofNullable(env.getProperty("ROADCC_USERNAME")).orElse("");
+        if (roadccUsername.isBlank()) logger.error("ROADCC_USERNAME is not set, please Follow ReadMe instructions.");
+        else logger.info("ROADCC_USERNAME: {}", roadccUsername);
+
+        if (ofNullable(env.getProperty("ROADCC_PASSWORD")).orElse("").isBlank())
+            logger.error("ROADCC_PASSWORD is not set, please Follow ReadMe instructions.");
+        else logger.info("ROADCC_PASSWORD: ******");
+
+        String roadccLeagueName = ofNullable(env.getProperty("ROADCC_LEAGUE_NAME")).orElse("");
+        if (roadccLeagueName.isBlank())
+            logger.error("ROADCC_LEAGUE_NAME is not set, please Follow ReadMe instructions.");
+        else logger.info("ROADCC_LEAGUE_NAME: {}", roadccLeagueName);
+
     }
 }
