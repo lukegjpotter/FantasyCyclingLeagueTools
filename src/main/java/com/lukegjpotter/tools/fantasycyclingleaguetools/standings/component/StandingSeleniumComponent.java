@@ -30,13 +30,17 @@ public class StandingSeleniumComponent {
         // Open website and login.
         WebDriver standingsWebDriver = commonWebDriverOperations.getWebDriverHeadless();
         commonWebsiteOperations.openRoadCcFantasyWebsite(standingsWebDriver);
-        commonWebsiteOperations.login(standingsWebDriver);
+
+        boolean isLoginSuccessful = commonWebsiteOperations.login(standingsWebDriver);
+        if (!isLoginSuccessful) return "";
 
         // View Competition
-        commonWebsiteOperations.selectCompetition(standingsWebDriver);
+        boolean isJoinedCompetitionsAvailable = commonWebsiteOperations.selectCompetition(standingsWebDriver);
+        if (!isJoinedCompetitionsAvailable) return "";
 
         // View League
-        commonWebsiteOperations.viewLeague(standingsWebDriver);
+        boolean isJoinedLeaguesAvailable = commonWebsiteOperations.viewLeague(standingsWebDriver);
+        if (!isJoinedLeaguesAvailable) return "";
 
         // Determine Standings and Today's Scores
         logger.info("Determining Standings");

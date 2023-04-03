@@ -31,18 +31,21 @@ public class TransferSeleniumComponent {
         // Open website and login.
         WebDriver transfersWebDriver = commonWebDriverOperations.getWebDriverHeadless();
         commonWebsiteOperations.openRoadCcFantasyWebsite(transfersWebDriver);
-        commonWebsiteOperations.login(transfersWebDriver);
+        boolean isLoginSuccessful = commonWebsiteOperations.login(transfersWebDriver);
+        if (!isLoginSuccessful) return new ArrayList<>();
 
-        // Select Competition - Giro, Tour, Vuelta.
-        commonWebsiteOperations.selectCompetition(transfersWebDriver);
+        // View Competition
+        boolean isJoinedCompetitionsAvailable = commonWebsiteOperations.selectCompetition(transfersWebDriver);
+        if (!isJoinedCompetitionsAvailable) return new ArrayList<>();
+
+        // View League
+        boolean isJoinedLeaguesAvailable = commonWebsiteOperations.viewLeague(transfersWebDriver);
+        if (!isJoinedLeaguesAvailable) return new ArrayList<>();
 
         // Determine the Latest Stage
         String[] raceNameStageNumber = stageNumberDeterminerComponent.determineLatestStage();
         String todaysStageNumber = raceNameStageNumber[0] + " " + raceNameStageNumber[1];
         logger.info("Latest Stage is {}", todaysStageNumber);
-
-        // View League
-        commonWebsiteOperations.viewLeague(transfersWebDriver);
 
         // Open Each User
         List<UserTransfer> usersAndTransfers = viewUsersAndGetTransfers(transfersWebDriver, raceNameStageNumber);

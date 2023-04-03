@@ -35,13 +35,17 @@ public class TeamSeleniumComponent {
         // Open website and login.
         WebDriver teamsWebDriver = commonWebDriverOperations.getWebDriverHeadless();
         commonWebsiteOperations.openRoadCcFantasyWebsite(teamsWebDriver);
-        commonWebsiteOperations.login(teamsWebDriver);
+
+        boolean isLoginSuccessful = commonWebsiteOperations.login(teamsWebDriver);
+        if (!isLoginSuccessful) return "";
 
         // View Competition
-        commonWebsiteOperations.selectCompetition(teamsWebDriver);
+        boolean isJoinedCompetitionsAvailable = commonWebsiteOperations.selectCompetition(teamsWebDriver);
+        if (!isJoinedCompetitionsAvailable) return "";
 
         // View League
-        commonWebsiteOperations.viewLeague(teamsWebDriver);
+        boolean isJoinedLeaguesAvailable = commonWebsiteOperations.viewLeague(teamsWebDriver);
+        if (!isJoinedLeaguesAvailable) return "";
 
         // Determine Standings and Today's Scores
         logger.info("Determining Existing Teams");
