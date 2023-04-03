@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
+import java.util.Optional;
+
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Fantasy Cycling League Tools API", version = "0.0.1", description = "A suite of Spring Boot REST APIs for a Fantasy Cycling League."))
 public class FantasyCyclingLeagueToolsApplication {
@@ -30,23 +32,19 @@ public class FantasyCyclingLeagueToolsApplication {
 
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
-                // Chromium is only available on Alpine Linux Package Manager.
-                String isFantasyCyclingToolsOnDocker = "false";
+        return args -> {
+            /* Chromium is only available on Alpine Linux Package Manager.
+             * Chrome is not supported on Alpine Image. */
+            boolean isFantasyCyclingToolsOnDocker =
+                    Boolean.parseBoolean(Optional.ofNullable(
+                            env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER")).orElse("false"));
 
-                // TODO: Use Optional here.
-                if (env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER") != null)
-                    isFantasyCyclingToolsOnDocker = env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER");
-
-                if (isFantasyCyclingToolsOnDocker.equalsIgnoreCase("true")) {
-                    logger.info("Using Chromium, as we're running on Docker");
-                    WebDriverManager.chromiumdriver().setup();
-                } else {
-                    logger.info("Using Chrome, as we're running on Local");
-                    WebDriverManager.chromedriver().setup();
-                }
+            if (isFantasyCyclingToolsOnDocker) {
+                logger.info("Using Chromium on Docker because of Alpine.");
+                WebDriverManager.chromiumdriver().setup();
+            } else {
+                logger.info("Using Chrome on supported Operating System.");
+                WebDriverManager.chromedriver().setup();
             }
         };
     }
