@@ -11,11 +11,15 @@ public class CommonWebDriverOperations {
     public WebDriver getWebDriverHeadless() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("headless");
+        options.addArguments("--remote-allow-origins=*");
 
         return new ChromeDriver(options);
     }
 
     public WebDriver getWebDriverWithUI() {
-        return new ChromeDriver(new ChromeOptions());
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+
+        return new ChromeDriver(options);
     }
 }
