@@ -34,21 +34,24 @@ public class FantasyCyclingLeagueToolsApplication {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
             checkEnvironmentVariablesAreSet();
-
-            /* Chromium is only available on Alpine Linux Package Manager.
-             * Chrome is not supported on Alpine Image. */
-            boolean isFantasyCyclingToolsOnDocker =
-                    Boolean.parseBoolean(ofNullable(
-                            env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER")).orElse("false"));
-
-            if (isFantasyCyclingToolsOnDocker) {
-                logger.info("Using Chromium on Docker because of Alpine.");
-                WebDriverManager.chromiumdriver().setup();
-            } else {
-                logger.info("Using Chrome on supported Operating System.");
-                WebDriverManager.chromedriver().setup();
-            }
+            decideBetweenChromeAndChromiumWebDriver();
         };
+    }
+
+    private void decideBetweenChromeAndChromiumWebDriver() {
+        /* Chromium is only available on Alpine Linux Package Manager.
+         * Chrome is not supported on Alpine Image. */
+        boolean isFantasyCyclingToolsOnDocker =
+                Boolean.parseBoolean(ofNullable(
+                        env.getProperty("IS_FANTASY_CYCLING_TOOLS_ON_DOCKER")).orElse("false"));
+
+        if (isFantasyCyclingToolsOnDocker) {
+            logger.info("Using Chromium on Docker because of Alpine.");
+            WebDriverManager.chromiumdriver().setup();
+        } else {
+            logger.info("Using Chrome on supported Operating System.");
+            WebDriverManager.chromedriver().setup();
+        }
     }
 
     private void checkEnvironmentVariablesAreSet() {
