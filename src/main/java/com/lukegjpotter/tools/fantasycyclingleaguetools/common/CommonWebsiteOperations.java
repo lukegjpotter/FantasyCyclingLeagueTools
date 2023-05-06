@@ -34,7 +34,7 @@ public class CommonWebsiteOperations {
         webDriver.findElement(By.className("login-submit")).click();
 
         // Check Login was Successful.
-        if (webDriver.getCurrentUrl().equals("https://fantasy.road.cc/login")) {
+        if (!webDriver.findElement(By.className("login-bar")).getText().contains("Logged in as " + env.getProperty("ROADCC_USERNAME"))) {
             logger.error("Your Username and/or Password were not correct, or there is some other problem. Please check ROADCC_USERNAME and ROADCC_PASSWORD.");
             return false;
         }
