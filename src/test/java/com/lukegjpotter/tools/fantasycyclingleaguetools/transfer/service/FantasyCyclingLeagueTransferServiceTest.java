@@ -43,7 +43,7 @@ class FantasyCyclingLeagueTransferServiceTest {
         List<UserTransfer> userTransfers = new ArrayList<>();
         UserTransfer userTransfer = new UserTransfer("Johnny");
         userTransfer.addTransfer("Bob -> Ligma");
-        userTransfer.setUsedTransfers(1);
+        userTransfer.setTotalUsedTransfers(1);
         userTransfers.add(userTransfer);
         Mockito.when(transferSeleniumComponent.getTransfers()).thenReturn(userTransfers);
 
