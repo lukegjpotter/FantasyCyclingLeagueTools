@@ -7,18 +7,18 @@ import java.util.List;
 public class UserTransfer {
 
     private final String username;
-    private int usedTransfers;
+    private int totalUsedTransfers;
     private final List<String> transfers;
     private static final int MAX_TRANSFERS = 45;
 
     public UserTransfer(String username) {
         this.username = username;
-        usedTransfers = 0;
+        totalUsedTransfers = 0;
         this.transfers = new ArrayList<>();
     }
 
-    public void setUsedTransfers(int usedTransfers) {
-        this.usedTransfers = usedTransfers;
+    public void setTotalUsedTransfers(int totalUsedTransfers) {
+        this.totalUsedTransfers = totalUsedTransfers;
     }
 
     public void addTransfer(String transfer) {
@@ -38,7 +38,7 @@ public class UserTransfer {
 
         StringBuilder transfersAsString = new StringBuilder();
         if (hasTransfers()) transfers.forEach(transfer -> transfersAsString.append(transfer).append("<br>"));
-        int remainingTransfers = MAX_TRANSFERS - usedTransfers;
+        int remainingTransfers = MAX_TRANSFERS - totalUsedTransfers;
 
         return ("<strong>" + username + "</strong><br>"
                 + "Today: " + transfers.size() + " | Remaining: " + remainingTransfers + "<br>"

@@ -66,7 +66,9 @@ public class TransferSeleniumComponent {
         // Read the League Table
         List<String> usernames = new ArrayList<>();
         List<WebElement> standingsTableRows = transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
-        standingsTableRows.remove(0); // Remove the Table Header Row.
+        // Remove the Table Header Row.
+        standingsTableRows.remove(0);
+        // Get Usernames from League Table.
         for (WebElement standingsTableRow : standingsTableRows) {
             List<WebElement> standingsTableFields = standingsTableRow.findElements(By.tagName("td"));
             usernames.add(commonWebsiteOperations.getUsernameFromLeagueTable(standingsTableFields));
@@ -92,16 +94,19 @@ public class TransferSeleniumComponent {
 
             /* Determine Total Transfers Used. This loop, rather than just the table.size(), is used, in the case that
              * there might be transfers related to another competition in the list. */
-            int usedTransfers = 0;
+            int totalUsedTransfers = 0;
             String raceName = raceNameStageNumber[0];
+            logger.trace("User: {}, Total Tx Used Table Size: {}", username, transferTableRows.size());
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
+                logger.trace("User: {}, Stage: {}, Race Name: {}", username, stage, raceName);
 
-                if (stage.startsWith(raceName)) usedTransfers++;
+                if (stage.startsWith(raceName)) totalUsedTransfers++;
                 else break;
             }
-            userTransfer.setUsedTransfers(usedTransfers);
+            logger.trace("User: {}, Total Tx Used: {}", username, totalUsedTransfers);
+            userTransfer.setTotalUsedTransfers(totalUsedTransfers);
 
             // Determine the actual rider for rider Transfers.
             for (WebElement transferTableRow : transferTableRows) {
@@ -110,8 +115,11 @@ public class TransferSeleniumComponent {
                 if (stage.equalsIgnoreCase(todaysStageNumber)) {
                     String riderOut = transferFields.get(4).getText().trim().split(" ", 2)[1];
                     String riderIn = transferFields.get(3).getText().trim().split(" ", 2)[1];
-                    userTransfer.addTransfer(riderOut + " -> " + riderIn);
+                    String transferAsText = riderOut + " -> " + riderIn;
+                    logger.trace("User: {}. Tx: {}", username, transferAsText);
+                    userTransfer.addTransfer(transferAsText);
                 } else { // We've finished getting the transfers for today's Stage.
+                    logger.trace("User: {}. End of Stage Transfers.", username);
                     break;
                 }
             }

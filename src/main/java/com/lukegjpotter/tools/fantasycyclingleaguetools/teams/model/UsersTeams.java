@@ -88,6 +88,7 @@ public class UsersTeams {
             if (sizeOfCurrentTeam > maxSizeOfTeam) maxSizeOfTeam = sizeOfCurrentTeam;
         }
 
+        // TODO: Add in a "&nbsp;" to the empty rider spaces, as the table doesn't copy over to Excel/Sheets very well without it.
         for (int riderPos = 1; riderPos < maxSizeOfTeam; riderPos++) {
             output.append("<tr>");
             for (int teamPos = 0; teamPos < usersTeams.size(); teamPos++) {
