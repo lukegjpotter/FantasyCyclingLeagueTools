@@ -12,7 +12,7 @@ class UserTransferTest {
     void testToString_oneTransfer() {
         UserTransfer userTransfer = new UserTransfer("luke");
         userTransfer.addTransfer("tom -> harry");
-        userTransfer.setUsedTransfers(1);
+        userTransfer.setTotalUsedTransfers(1);
 
         String expected = "<strong>luke</strong><br>" +
                 "Today: 1 | Remaining: 44<br>" +
@@ -38,7 +38,7 @@ class UserTransferTest {
         UserTransfer userTransfer = new UserTransfer("luke");
         userTransfer.addTransfer("tom -> harry");
         userTransfer.addTransfer("tom -> harry");
-        userTransfer.setUsedTransfers(2);
+        userTransfer.setTotalUsedTransfers(2);
 
         String expected = "<strong>luke</strong><br>" +
                 "Today: 2 | Remaining: 43<br>" +
@@ -55,7 +55,7 @@ class UserTransferTest {
         userTransfer.addTransfer("random -> transfer");
         userTransfer.addTransfer("original -> abandon");
         userTransfer.reverseTransferOrder();
-        userTransfer.setUsedTransfers(3);
+        userTransfer.setTotalUsedTransfers(3);
 
         String expected = "<strong>luke</strong><br>" +
                 "Today: 3 | Remaining: 42<br>" +
