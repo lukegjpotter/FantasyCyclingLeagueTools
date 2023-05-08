@@ -62,15 +62,17 @@ public class StandingSeleniumComponent {
             String todaysScore = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[10]/th[2]")).getText().trim();
             stageResultsClose.click();
 
-            standings.append("<tr><td>")
-                    .append(standingsTableFields.get(0).getText().trim()) // Position
-                    .append("</td><td>")
-                    .append(username) // Username
-                    .append("</td><td>")
-                    .append(standingsTableFields.get(2).getText().trim()) // Total Score
-                    .append("</td><td>")
+            String leaguePosition = standingsTableFields.get(0).getText().trim();
+            String totalScore = standingsTableFields.get(2).getText().trim();
+            standings.append("<tr><td style=\"text-align:right;\"><code>")
+                    .append(leaguePosition)
+                    .append("</code></td><td>")
+                    .append(username)
+                    .append("</td><td style=\"text-align:right;\"><code>")
+                    .append(totalScore)
+                    .append("</code></td><td style=\"text-align:right;\"><code>")
                     .append(todaysScore)
-                    .append("</td></tr>");
+                    .append("</code></td></tr>");
         }
         standings.append("</table></body></html>");
 
