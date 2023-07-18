@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -94,5 +95,37 @@ public class CommonWebsiteOperations {
 
     public String getUsernameFromLeagueTable(List<WebElement> tableFields) {
         return tableFields.get(1).getText().trim().split(" {4}")[1].trim();
+    }
+
+    /**
+     * Converts a Rider's Full Name, from the Transfer List, to an abbreviated and correct surname format.
+     *
+     * @param riderFullName
+     * @return Rider name in the format of "A. Yates", "M. van der Poel", "M. Skjelmose".
+     */
+    public String getRiderNameFromTransferList(String riderFullName) {
+        String firstName = riderFullName.charAt(0) + ".";
+        String surname = riderFullName.split(" ", 2)[1];
+
+        // Only allow certain middle names.
+        List<String> splitSurname = Arrays.asList(surname.split(" "));
+        int numberOfWordsInSurname = splitSurname.size();
+        if (numberOfWordsInSurname > 1) {
+            List<String> preferredMiddleNames = Arrays.asList("Skjelmose");
+            for (int i = 0; i < numberOfWordsInSurname; i++) {
+                if (preferredMiddleNames.contains(splitSurname.get(i))) {
+                    splitSurname.set(numberOfWordsInSurname - 1, "");
+                    numberOfWordsInSurname--;
+                }
+            }
+
+            List<String> allowedMiddleNames = Arrays.asList("Van", "van", "der", "van der", "mac", "mc");
+            for (int i = 0; i < numberOfWordsInSurname - 1; i++) {
+                if (!allowedMiddleNames.contains(splitSurname.get(i))) splitSurname.set(i, "");
+            }
+            surname = String.join(" ", splitSurname).trim();
+        }
+
+        return firstName + " " + surname;
     }
 }
