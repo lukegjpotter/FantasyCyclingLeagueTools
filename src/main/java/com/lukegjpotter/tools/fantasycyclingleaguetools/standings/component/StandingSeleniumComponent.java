@@ -44,8 +44,8 @@ public class StandingSeleniumComponent {
 
         // Determine Standings and Today's Scores
         logger.info("Determining Standings");
-        // ToDo: Change "Today", to the Stage number.
-        StringBuilder standings = new StringBuilder("<html><head><title>Standings</title></head><body><table><tr><th>Pos.</th><th>Name</th><th>Total</th><th>Today</th></tr>");
+        StringBuilder standings = new StringBuilder("<html><head><title>Standings</title></head><body><table><tr><th>Pos.</th><th>Name</th><th>Total</th><th>Stage %s</th></tr>");
+        int stageNumber = 0;
 
         // Read the League Table
         List<WebElement> standingsTableRows = standingsWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
@@ -59,8 +59,13 @@ public class StandingSeleniumComponent {
 
             // Open Popup, wait for it to load, read the Score, Close Popup
             standingsTableFields.get(2).findElement(By.tagName("a")).click();
-            WebElement stageResultsClose = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
+            WebElement stageResultsClose = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(
+                    ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
             String todaysScore = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[10]/th[2]")).getText().trim();
+            if (stageNumber == 0) {
+                String teamRaceandStageNumber = stageResultsClose.findElement(By.xpath("//*[@id=\"overlay\"]/div[1]/h3")).getText().trim();
+                stageNumber = Integer.parseInt(teamRaceandStageNumber.substring(teamRaceandStageNumber.lastIndexOf(" ") + 1));
+            }
             stageResultsClose.click();
 
             String leaguePosition = standingsTableFields.get(0).getText().trim();
@@ -82,6 +87,6 @@ public class StandingSeleniumComponent {
         commonWebsiteOperations.logout(standingsWebDriver);
         standingsWebDriver.quit();
 
-        return standings.toString();
+        return String.format(standings.toString(), stageNumber);
     }
 }
