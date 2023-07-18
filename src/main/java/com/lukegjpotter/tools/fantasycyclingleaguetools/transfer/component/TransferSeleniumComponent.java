@@ -6,11 +6,14 @@ import com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.model.UserTrans
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,8 +89,11 @@ public class TransferSeleniumComponent {
             transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(anchorTagsIndex).click();
 
             // Expand Transfers
+            WebDriverWait transferTableWait = new WebDriverWait(transfersWebDriver, Duration.ofSeconds(10));
+            By xpathUserTransfersLeaguesTable = By.xpath("//div[@class=\"usertransfers\"]//table[@class=\"leagues\"]");
+            transferTableWait.until(ExpectedConditions.presenceOfElementLocated(xpathUserTransfersLeaguesTable));
             transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.tagName("a")).click();
-            List<WebElement> transferTableRows = transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.className("leagues")).findElements(By.tagName("tr"));
+            List<WebElement> transferTableRows = transfersWebDriver.findElement(xpathUserTransfersLeaguesTable).findElements(By.tagName("tr"));
 
             // Remove the Table Headers.
             transferTableRows.remove(0);
