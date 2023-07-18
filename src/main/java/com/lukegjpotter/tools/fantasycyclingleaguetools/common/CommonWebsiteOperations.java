@@ -101,10 +101,11 @@ public class CommonWebsiteOperations {
      * Converts a Rider's Full Name, from the Transfer List, or Stage Results Team List, to an abbreviated and correct
      * surname format.
      *
-     * @param riderFullName
+     * @param riderFullName A rider's full Name. e.g. "Adam Yates", "Mattias Skjelmose Jensen"
      * @return Rider name in the format of "A. Yates", "M. van der Poel", "M. Skjelmose".
      */
     public String formatRiderName(String riderFullName) {
+        // ToDo: Only use the First Letter of the first name for specific surnames.
         String firstName = riderFullName.charAt(0) + ".";
         String surname = riderFullName.split(" ", 2)[1];
 

@@ -28,6 +28,11 @@ public class StageNumberDeterminerComponent {
         todaysDate = "";
     }
 
+    /**
+     * Determines the latest Stage.
+     *
+     * @return String Array [Race Name, Stage Number]
+     */
     public String[] determineLatestStage() {
         int linesToSkip;
         if (monthNumber == 0) monthNumber = LocalDate.now().getMonthValue();
