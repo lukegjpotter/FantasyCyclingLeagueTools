@@ -93,6 +93,6 @@ public class CommonWebsiteOperations {
     }
 
     public String getUsernameFromLeagueTable(List<WebElement> tableFields) {
-        return tableFields.get(1).getText().trim().split(" {4}")[1];
+        return tableFields.get(1).getText().trim().split(" {4}")[1].trim();
     }
 }
