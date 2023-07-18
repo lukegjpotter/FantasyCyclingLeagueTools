@@ -119,8 +119,8 @@ public class TransferSeleniumComponent {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
                 if (stage.equalsIgnoreCase(todaysStageNumber)) {
-                    String riderOut = commonWebsiteOperations.getRiderNameFromTransferList(transferFields.get(4).getText().trim());
-                    String riderIn = commonWebsiteOperations.getRiderNameFromTransferList(transferFields.get(3).getText().trim());
+                    String riderOut = commonWebsiteOperations.formatRiderName(transferFields.get(4).getText().trim());
+                    String riderIn = commonWebsiteOperations.formatRiderName(transferFields.get(3).getText().trim());
                     String transferAsText = riderOut + " -> " + riderIn;
                     logger.trace("User: {}. Tx: {}", username, transferAsText);
                     userTransfer.addTransfer(transferAsText);

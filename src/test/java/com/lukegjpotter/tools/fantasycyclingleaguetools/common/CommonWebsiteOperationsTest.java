@@ -13,49 +13,49 @@ class CommonWebsiteOperationsTest {
     CommonWebsiteOperations commonWebsiteOperations;
 
     @Test
-    void getRiderNameFromTransferList_AdamYates() {
+    void formatRiderName_AdamYates() {
         String expected = "A. Yates";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Adam Yates");
+        String actual = commonWebsiteOperations.formatRiderName("Adam Yates");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void getRiderNameFromTransferList_MvdP() {
+    void formatRiderName_MvdP() {
         String expected = "M. van der Poel";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Mathieu van der Poel");
+        String actual = commonWebsiteOperations.formatRiderName("Mathieu van der Poel");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void getRiderNameFromTransferList_WVA() {
+    void formatRiderName_WVA() {
         String expected = "W. Van Aert";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Wout Van Aert");
+        String actual = commonWebsiteOperations.formatRiderName("Wout Van Aert");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void getRiderNameFromTransferList_Skjelmose() {
+    void formatRiderName_Skjelmose() {
         String expected = "M. Skjelmose";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Mattias Skjelmose Jensen");
+        String actual = commonWebsiteOperations.formatRiderName("Mattias Skjelmose Jensen");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void getRiderNameFromTransferList_TobiasJohannessen() {
+    void formatRiderName_TobiasJohannessen() {
         String expected = "T. Johannessen";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Tobias Halland Johannessen");
+        String actual = commonWebsiteOperations.formatRiderName("Tobias Halland Johannessen");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void getRiderNameFromTransferList_GeogheganHart() {
+    void formatRiderName_GeogheganHart() {
         String expected = "T. Geoghegan-Hart";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Tao Geoghegan-Hart");
+        String actual = commonWebsiteOperations.formatRiderName("Tao Geoghegan-Hart");
 
         assertEquals(expected, actual);
     }
@@ -63,7 +63,7 @@ class CommonWebsiteOperationsTest {
     @Test
     void getRiderNameFromTransferList_DaniMartinez() {
         String expected = "D. Martinez";
-        String actual = commonWebsiteOperations.getRiderNameFromTransferList("Daniel Felipe Martinez");
+        String actual = commonWebsiteOperations.formatRiderName("Daniel Felipe Martinez");
 
         assertEquals(expected, actual);
     }

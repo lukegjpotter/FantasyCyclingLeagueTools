@@ -59,7 +59,9 @@ public class TeamSeleniumComponent {
 
 
         // Merge Transfers.
+        //FixMe: This is not working.
         String transfersHtmlSource = transferService.getTransfers();
+        logger.trace(transfersHtmlSource);
         usersTeams = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams);
 
         // Align Teams
@@ -74,7 +76,8 @@ public class TeamSeleniumComponent {
     private UsersTeams determineUsersTeams(WebDriver determineTeamsWebDriver) {
         UsersTeams usersTeams = new UsersTeams();
         // Read the League Table
-        List<WebElement> standingsTableRows = determineTeamsWebDriver.findElement(By.className("leagues")).findElements(By.tagName("tr"));
+        List<WebElement> standingsTableRows = determineTeamsWebDriver.findElement(
+                By.className("leagues")).findElements(By.tagName("tr"));
         standingsTableRows.remove(0); // Remove the Table Header Row.
 
         // Loop - Click on Total Score, Read Rider's Surnames.
@@ -86,11 +89,15 @@ public class TeamSeleniumComponent {
 
             // Open Popup, wait for it to load, read the Score, Close Popup
             standingsTableFields.get(2).findElement(By.tagName("a")).click();
-            WebElement stageResultsClose = new WebDriverWait(determineTeamsWebDriver, Duration.ofMillis(2000)).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
+            WebElement stageResultsClose = new WebDriverWait(determineTeamsWebDriver, Duration.ofMillis(2000))
+                    .until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("/html/body/div[2]/div[3]/a")));
 
             for (int i = 2; i <= 9; i++) {
-                String riderSurame = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[" + i + "]/td[1]")).getText().trim();
-                riderSurame = riderSurame.split(" {2}", 2)[0].trim().split(" ", 2)[1];
+                String riderFullName = stageResultsClose.findElement(
+                                By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[" + i + "]/td[1]"))
+                        .getText().trim().split(" {2}", 2)[0].trim();
+                String riderSurame = commonWebsiteOperations.formatRiderName(riderFullName);
                 usersTeams.addRidertoUsersTeam(username, riderSurame);
             }
 
