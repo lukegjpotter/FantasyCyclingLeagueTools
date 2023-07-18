@@ -44,6 +44,7 @@ public class StandingSeleniumComponent {
 
         // Determine Standings and Today's Scores
         logger.info("Determining Standings");
+        // ToDo: Change "Today", to the Stage number.
         StringBuilder standings = new StringBuilder("<html><head><title>Standings</title></head><body><table><tr><th>Pos.</th><th>Name</th><th>Total</th><th>Today</th></tr>");
 
         // Read the League Table
