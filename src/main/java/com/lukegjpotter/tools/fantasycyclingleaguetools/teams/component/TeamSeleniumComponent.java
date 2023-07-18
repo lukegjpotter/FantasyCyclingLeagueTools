@@ -59,7 +59,6 @@ public class TeamSeleniumComponent {
 
 
         // Merge Transfers.
-        //FixMe: This is not working.
         String transfersHtmlSource = transferService.getTransfers();
         logger.trace(transfersHtmlSource);
         usersTeams = transferMergeComponent.mergeTransfersIntoUsersTeams(transfersHtmlSource, usersTeams);
