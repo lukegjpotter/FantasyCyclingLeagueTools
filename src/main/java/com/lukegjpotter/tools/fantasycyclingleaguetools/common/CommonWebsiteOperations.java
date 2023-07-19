@@ -102,18 +102,19 @@ public class CommonWebsiteOperations {
      * surname format.
      *
      * @param riderFullName A rider's full Name. e.g. "Adam Yates", "Mattias Skjelmose Jensen"
-     * @return Rider name in the format of "A. Yates", "M. van der Poel", "M. Skjelmose".
+     * @return Rider name in the format of "A. Yates", "Skjelmose", "MVDP".
      */
     public String formatRiderName(String riderFullName) {
-        // ToDo: Only use the First Letter of the first name for specific surnames.
-        String firstName = riderFullName.charAt(0) + ".";
+        String firstName = "";
         String surname = riderFullName.split(" ", 2)[1];
 
         // Only allow certain middle names.
         List<String> splitSurname = Arrays.asList(surname.split(" "));
         int numberOfWordsInSurname = splitSurname.size();
+
         if (numberOfWordsInSurname > 1) {
-            List<String> preferredMiddleNames = Arrays.asList("Skjelmose");
+            // Allows riders using preferred middle names, rather than their express last name.
+            List<String> preferredMiddleNames = List.of("Skjelmose");
             for (int i = 0; i < numberOfWordsInSurname; i++) {
                 if (preferredMiddleNames.contains(splitSurname.get(i))) {
                     splitSurname.set(numberOfWordsInSurname - 1, "");
@@ -121,13 +122,26 @@ public class CommonWebsiteOperations {
                 }
             }
 
-            List<String> allowedMiddleNames = Arrays.asList("Van", "van", "der", "van der", "mac", "mc");
+            // Allow middle names that generally have spaces in them.
+            List<String> allowedMiddleNames = List.of("Van", "van", "der", "van der", "van den", "Le", "mac", "mc");
             for (int i = 0; i < numberOfWordsInSurname - 1; i++) {
                 if (!allowedMiddleNames.contains(splitSurname.get(i))) splitSurname.set(i, "");
             }
             surname = String.join(" ", splitSurname).trim();
         }
 
-        return firstName + " " + surname;
+        // Clarify riders with the same surnames.
+        List<String> surnamesNeedingClarification = List.of("Yates", "Izagirre");
+        if (surnamesNeedingClarification.contains(surname)) firstName = riderFullName.charAt(0) + ".";
+
+        String riderFormattedName = (firstName + " " + surname).trim();
+
+        // Substitute Rider Nicknames
+        List<String> riderBaseName = List.of("Pidcock", "van der Poel", "Van Aert", "Pogacar", "Vingegaard", "Kwiatkowski", "Pinot");
+        List<String> riderNickName = List.of("Pisscock", "MVDP", "WVA", "Poggy", "Jonas", "Kwaito", "TiboPinot");
+        int indexOfNickName = riderBaseName.indexOf(riderFormattedName);
+        if (indexOfNickName >= 0) return riderNickName.get(indexOfNickName);
+
+        return riderFormattedName;
     }
 }

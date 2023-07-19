@@ -22,7 +22,7 @@ class CommonWebsiteOperationsTest {
 
     @Test
     void formatRiderName_MvdP() {
-        String expected = "M. van der Poel";
+        String expected = "MVDP";
         String actual = commonWebsiteOperations.formatRiderName("Mathieu van der Poel");
 
         assertEquals(expected, actual);
@@ -30,7 +30,7 @@ class CommonWebsiteOperationsTest {
 
     @Test
     void formatRiderName_WVA() {
-        String expected = "W. Van Aert";
+        String expected = "WVA";
         String actual = commonWebsiteOperations.formatRiderName("Wout Van Aert");
 
         assertEquals(expected, actual);
@@ -38,7 +38,7 @@ class CommonWebsiteOperationsTest {
 
     @Test
     void formatRiderName_Skjelmose() {
-        String expected = "M. Skjelmose";
+        String expected = "Skjelmose";
         String actual = commonWebsiteOperations.formatRiderName("Mattias Skjelmose Jensen");
 
         assertEquals(expected, actual);
@@ -46,7 +46,7 @@ class CommonWebsiteOperationsTest {
 
     @Test
     void formatRiderName_TobiasJohannessen() {
-        String expected = "T. Johannessen";
+        String expected = "Johannessen";
         String actual = commonWebsiteOperations.formatRiderName("Tobias Halland Johannessen");
 
         assertEquals(expected, actual);
@@ -54,18 +54,17 @@ class CommonWebsiteOperationsTest {
 
     @Test
     void formatRiderName_GeogheganHart() {
-        String expected = "T. Geoghegan-Hart";
+        String expected = "Geoghegan-Hart";
         String actual = commonWebsiteOperations.formatRiderName("Tao Geoghegan-Hart");
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void getRiderNameFromTransferList_DaniMartinez() {
-        String expected = "D. Martinez";
+    void formatRiderName_DaniMartinez() {
+        String expected = "Martinez";
         String actual = commonWebsiteOperations.formatRiderName("Daniel Felipe Martinez");
 
         assertEquals(expected, actual);
     }
-
 }
