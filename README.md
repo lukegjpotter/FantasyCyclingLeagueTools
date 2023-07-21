@@ -28,6 +28,14 @@ Records. This is a pending action.
 
 ## Build, Run and Test
 
+### Download "Chrome For Testing" Browser
+
+Since Chrome version 115 (late-July 2023), there is a new Browser, Chrome for Testing, that the July 2023 releases of
+Selenium and WebDriverManager look for.
+
+This can be downloaded via Puppet, or from the Website
+[Chrome for Testing Releases](https://googlechromelabs.github.io/chrome-for-testing/).
+
 ### Terminal or CLI
 
 You can run this in your Terminal by editing the `setEnvironmentalVariables.sh` or `setEnvironmentalVariables.bat`
