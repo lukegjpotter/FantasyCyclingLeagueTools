@@ -10,7 +10,7 @@ public class CommonWebDriverOperations {
 
     public WebDriver getWebDriverHeadless() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
+        options.addArguments("--headless=new");
         options.addArguments("--remote-allow-origins=*");
 
         return new ChromeDriver(options);
