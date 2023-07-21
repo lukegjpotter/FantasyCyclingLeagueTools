@@ -36,9 +36,9 @@ class TransferMergeComponentTest {
         usersTeams.addRidertoUsersTeam("Luke", "Teunissen");
 
         String transfersHtmlSource = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
-                "SEAN (1)<br>Bennett -> Lutsenko<br><br><br>" +
-                "KAY (2)<br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
-                "LUKE (3)<br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
+                "<strong>SEAN</strong><br>Bennett -> Lutsenko<br><br><br>" +
+                "<strong>KAY</strong><br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
+                "<strong>LUKE</strong><br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
                 "</p></body></html>";
 
         String expected = "<table>" +
@@ -102,9 +102,9 @@ class TransferMergeComponentTest {
         usersTeams.addRidertoUsersTeam("Luke", "Teunissen");
 
         String transfersHtmlSource = "<html><head><title>Transfers</title></head><body><p>Transfers: Out -> In<br><br>" +
-                "SEAN (1)<br>Bennett -> Lutsenko<br><br><br>" +
-                "KAY MCKAY (2)<br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
-                "LUKE (3)<br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
+                "<strong>SEAN</strong><br>Bennett -> Lutsenko<br><br><br>" +
+                "<strong>KAY MCKAY</strong><br>Stewart -> Yates<br>Higuita -> De Gendt<br><br><br>" +
+                "<strong>LUKE</strong><br>Bennett -> Evenepoel<br>Merlier -> Herrada<br>Teunissen -> Alaphilippe<br><br><br>" +
                 "</p></body></html>";
 
         String expected = "<table>" +
