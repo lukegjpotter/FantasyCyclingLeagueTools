@@ -82,7 +82,7 @@ class UsersTeamsTest {
 
         String expected = "<table>" +
                 "<tr><th>user1</th><th>user2</th></tr>" +
-                "<tr><td>1-rider1</td><td></td></tr>" +
+                "<tr><td>1-rider1</td><td>&nbsp;</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
 
@@ -97,7 +97,7 @@ class UsersTeamsTest {
 
         String expected = "<table>" +
                 "<tr><th>user1</th><th>user2</th></tr>" +
-                "<tr><td></td><td>2-rider1</td></tr>" +
+                "<tr><td>&nbsp;</td><td>2-rider1</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
 
@@ -289,9 +289,9 @@ class UsersTeamsTest {
         String expected = "<table>" +
                 "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
                 "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
-                "<tr><td>Jai</td><td></td><td>Jai</td></tr>" +
-                "<tr><td>Mas</td><td>Mas</td><td></td></tr>" +
-                "<tr><td></td><td>Remco</td><td>Remco</td></tr>" +
+                "<tr><td>Jai</td><td>&nbsp;</td><td>Jai</td></tr>" +
+                "<tr><td>Mas</td><td>Mas</td><td>&nbsp;</td></tr>" +
+                "<tr><td>&nbsp;</td><td>Remco</td><td>Remco</td></tr>" +
                 "<tr><td>Carapaz</td><td>Bennet</td><td>Ayuso</td></tr>" +
                 "<tr><td>Vine</td><td>De Gendt</td><td>Pedro</td></tr>" +
                 "</table>";
@@ -332,10 +332,10 @@ class UsersTeamsTest {
                 "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
                 "<tr><td>Jai</td><td bgcolor=\"#D7BDE2\">Jai</td><td>Jai</td></tr>" +
                 "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
-                "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td></td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +
-                "<tr><td>Mas</td><td>Mas</td><td></td></tr>" +
+                "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td>&nbsp;</td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +
+                "<tr><td>Mas</td><td>Mas</td><td>&nbsp;</td></tr>" +
                 "<tr><td>Carapaz</td><td>Bennet</td><td>Ayuso</td></tr>" +
-                "<tr><td></td><td>De Gendt</td><td>Remco</td></tr>" +
+                "<tr><td>&nbsp;</td><td>De Gendt</td><td>Remco</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
 
@@ -375,10 +375,10 @@ class UsersTeamsTest {
                 "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
                 "<tr><td>Jai</td><td bgcolor=\"#D7BDE2\">Jai</td><td>Jai</td></tr>" +
                 "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
-                "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td></td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +
-                "<tr><td>Mas</td><td>Mas</td><td></td></tr>" +
+                "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td>&nbsp;</td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +
+                "<tr><td>Mas</td><td>Mas</td><td>&nbsp;</td></tr>" +
                 "<tr><td>Carapaz</td><td>Bennet</td><td bgcolor=\"#D7BDE2\">Arensman</td></tr>" +
-                "<tr><td></td><td>De Gendt</td><td>Ayuso</td></tr>" +
+                "<tr><td>&nbsp;</td><td>De Gendt</td><td>Ayuso</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
 

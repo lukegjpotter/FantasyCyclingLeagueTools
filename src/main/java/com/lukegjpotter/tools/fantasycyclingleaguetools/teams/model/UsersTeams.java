@@ -5,10 +5,19 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+/**
+ * UserTeams.java
+ *
+ * @Author Luke GJ Potter - @lukegjpotter
+ * <p>
+ * This class handles the User Teams for the Teams Endpoint.
+ * Ensure that alignTeams is called, before the toString method is called.
+ */
 public class UsersTeams {
 
     private List<List<String>> usersTeams;
     private static final String TRANSFER_SIGNAL = "tx->";
+    private String htmlEncodedSpace = "&nbsp;";
 
     private final Logger logger = LoggerFactory.getLogger(UsersTeams.class);
 
@@ -88,7 +97,6 @@ public class UsersTeams {
             if (sizeOfCurrentTeam > maxSizeOfTeam) maxSizeOfTeam = sizeOfCurrentTeam;
         }
 
-        // TODO: Add in a "&nbsp;" to the empty rider spaces, as the table doesn't copy over to Excel/Sheets very well without it.
         for (int riderPos = 1; riderPos < maxSizeOfTeam; riderPos++) {
             output.append("<tr>");
             for (int teamPos = 0; teamPos < usersTeams.size(); teamPos++) {
@@ -97,6 +105,7 @@ public class UsersTeams {
                     riderName = usersTeams.get(teamPos).get(riderPos);
                 } catch (IndexOutOfBoundsException ioobException) {
                     // No need to do anything, as riderName is already empty;
+                    riderName = htmlEncodedSpace;
                 }
                 if (riderName.startsWith(TRANSFER_SIGNAL)) {
                     riderName = riderName.substring(TRANSFER_SIGNAL.length());
@@ -164,7 +173,7 @@ public class UsersTeams {
                         if (isRiderInUsersTeam(username, riderName)) {
                             alignedUsersTeams.addRidertoUsersTeam(username, riderName);
                         } else {
-                            alignedUsersTeams.addRidertoUsersTeam(username, "");
+                            alignedUsersTeams.addRidertoUsersTeam(username, htmlEncodedSpace);
                         }
                     }
                 }
@@ -188,7 +197,6 @@ public class UsersTeams {
                 alignedUsersTeams.replaceRiderForUsersTeam(username, riderName, riderName);
             }
         }
-
 
         // Reassign the AlignedUsers teams.
         usersTeams = alignedUsersTeams.usersTeams;
