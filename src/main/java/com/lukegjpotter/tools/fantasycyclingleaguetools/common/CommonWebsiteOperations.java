@@ -123,7 +123,7 @@ public class CommonWebsiteOperations {
             }
 
             // Allow middle names that generally have spaces in them.
-            List<String> allowedMiddleNames = List.of("Van", "van", "der", "van der", "van den", "Le", "mac", "mc");
+            List<String> allowedMiddleNames = List.of("van der", "van den", "Van", "van", "der", "den", "Le", "mac", "mc", "de", "la");
             for (int i = 0; i < numberOfWordsInSurname - 1; i++) {
                 if (!allowedMiddleNames.contains(splitSurname.get(i))) splitSurname.set(i, "");
             }
@@ -131,14 +131,14 @@ public class CommonWebsiteOperations {
         }
 
         // Clarify riders with the same surnames.
-        List<String> surnamesNeedingClarification = List.of("Yates", "Izagirre");
+        List<String> surnamesNeedingClarification = List.of("Yates", "Izagirre", "van den Berg");
         if (surnamesNeedingClarification.contains(surname)) firstName = riderFullName.charAt(0) + ".";
 
         String riderFormattedName = (firstName + " " + surname).trim();
 
         // Substitute Rider Nicknames
-        List<String> riderBaseName = List.of("Pidcock", "van der Poel", "Van Aert", "Pogacar", "Vingegaard", "Kwiatkowski", "Pinot");
-        List<String> riderNickName = List.of("Pisscock", "MVDP", "WVA", "Poggy", "Jonas", "Kwaito", "TiboPinot");
+        List<String> riderBaseName = List.of("Pidcock", "van der Poel", "Van Aert", "Pogacar", "Vingegaard", "Kwiatkowski", "Pinot", "Evenepoel");
+        List<String> riderNickName = List.of("Pisscock", "MVDP", "WVA", "Poggy", "Jonas", "Kwaito", "TiboPinot", "Remco");
         int indexOfNickName = riderBaseName.indexOf(riderFormattedName);
         if (indexOfNickName >= 0) return riderNickName.get(indexOfNickName);
 
