@@ -65,7 +65,7 @@ public class CommonWebsiteOperations {
         WebElement competitionWebElement = webDriver.findElement(By.xpath("//div[@class=\"compbox joinedcomp last\"]"));
 
         try {
-            competitionWebElement.findElement(By.className("joinbutton")).click();
+            competitionWebElement.findElement(By.xpath("//a[@class='joinbutton green']")).click();
         } catch (NoSuchElementException e) {
             logger.error("You have not joined any Competitions, or Competitions you have joined in the past are no longer active.");
             return false;
