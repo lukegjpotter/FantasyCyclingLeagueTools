@@ -50,7 +50,7 @@ public class FantasyCyclingLeagueToolsApplication {
             WebDriverManager.chromiumdriver().setup();
         } else {
             logger.info("Using Chrome on supported Operating System.");
-            WebDriverManager.chromedriver().setup();
+            WebDriverManager.chromedriver().driverVersion("115.0.5790.102").setup();
         }
     }
 
