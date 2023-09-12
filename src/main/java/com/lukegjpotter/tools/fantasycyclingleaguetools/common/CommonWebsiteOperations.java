@@ -123,7 +123,7 @@ public class CommonWebsiteOperations {
             }
 
             // Allow middle names that generally have spaces in them.
-            List<String> allowedMiddleNames = List.of("van der", "van den", "Van", "van", "der", "den", "Le", "mac", "mc", "de", "la");
+            List<String> allowedMiddleNames = List.of("van der", "van den", "Van", "van", "der", "den", "Le", "mac", "mc", "de", "la", "De", "La");
             for (int i = 0; i < numberOfWordsInSurname - 1; i++) {
                 if (!allowedMiddleNames.contains(splitSurname.get(i))) splitSurname.set(i, "");
             }

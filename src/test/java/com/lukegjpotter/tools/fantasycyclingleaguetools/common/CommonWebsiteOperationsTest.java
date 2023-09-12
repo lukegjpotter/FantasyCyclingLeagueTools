@@ -71,7 +71,7 @@ class CommonWebsiteOperationsTest {
     @Test
     void formatRiderName_DavidDeLaCruz() {
         String expected = "de la Cruz";
-        String actual = commonWebsiteOperations.formatRiderName("David de la Cruz");
+        String actual = commonWebsiteOperations.formatRiderName("David De La Cruz");
 
         assertEquals(expected, actual);
     }
