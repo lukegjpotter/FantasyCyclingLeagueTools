@@ -34,17 +34,10 @@ public class StageNumberDeterminerComponent {
      * @return String Array [Race Name, Stage Number]
      */
     public String[] determineLatestStage() {
-        int linesToSkip;
         if (monthNumber == 0) monthNumber = LocalDate.now().getMonthValue();
         String[] raceNameStageNumber = new String[]{"", ""};
 
-        // Cut down on linear search time through the CSV file, by skipping old Races.
-        if (monthNumber == 5 || monthNumber == 6) linesToSkip = 1; // Giro is in May, and maybe June.
-        else if (monthNumber == 7) linesToSkip = 24; // Tour is in July.
-        else if (monthNumber <= 10) linesToSkip = 47; // Vuelta spans August and September.
-        else return raceNameStageNumber;
-
-        try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(pathToCsvFile)).withSkipLines(linesToSkip).build()) {
+        try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(pathToCsvFile)).withSkipLines(1).build()) {
             String[] lineInArray;
             if (todaysDate.isEmpty())
                 todaysDate = new SimpleDateFormat(datePattern, new Locale("en", "UK")).format(new Date());
