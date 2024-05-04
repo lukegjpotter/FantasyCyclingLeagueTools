@@ -15,7 +15,7 @@ import java.util.Locale;
 @Component
 public class StageNumberDeterminerComponent {
 
-    private final String pathToCsvFile;
+    private String pathToCsvFile;
     private final String datePattern;
 
     private int monthNumber;
@@ -46,7 +46,7 @@ public class StageNumberDeterminerComponent {
 
         try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(pathToCsvFile)).withSkipLines(linesToSkip).build()) {
             String[] lineInArray;
-            if (todaysDate.equals(""))
+            if (todaysDate.isEmpty())
                 todaysDate = new SimpleDateFormat(datePattern, new Locale("en", "UK")).format(new Date());
 
             while ((lineInArray = csvReader.readNext()) != null) {
@@ -79,5 +79,9 @@ public class StageNumberDeterminerComponent {
      */
     public void setTodaysDate(String todaysDate) {
         this.todaysDate = todaysDate;
+    }
+
+    public void setPathToCsvFile(String pathToCsvFile) {
+        this.pathToCsvFile = pathToCsvFile;
     }
 }

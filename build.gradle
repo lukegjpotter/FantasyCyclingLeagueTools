@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.1'
-    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.lukegjpotter.tools'
@@ -14,10 +14,10 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
-    implementation 'io.github.bonigarcia:webdrivermanager:5.4.1'
-    implementation 'com.opencsv:opencsv:5.7.1'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.20.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
+    implementation 'com.opencsv:opencsv:5.9'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

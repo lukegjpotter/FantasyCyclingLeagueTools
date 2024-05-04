@@ -70,7 +70,7 @@ class CommonWebsiteOperationsTest {
 
     @Test
     void formatRiderName_DavidDeLaCruz() {
-        String expected = "de la Cruz";
+        String expected = "De La Cruz";
         String actual = commonWebsiteOperations.formatRiderName("David De La Cruz");
 
         assertEquals(expected, actual);
@@ -80,6 +80,14 @@ class CommonWebsiteOperationsTest {
     void formatRiderName_MarijnVanDenBerg() {
         String expected = "M. van den Berg";
         String actual = commonWebsiteOperations.formatRiderName("Marijn van den Berg");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void formatRiderName_AurelienParetPeintre() {
+        String expected = "A. Paret-Peintre";
+        String actual = commonWebsiteOperations.formatRiderName("Aurélien Paret-Peintre");
 
         assertEquals(expected, actual);
     }

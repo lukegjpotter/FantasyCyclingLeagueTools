@@ -1,5 +1,6 @@
 package com.lukegjpotter.tools.fantasycyclingleaguetools.transfer.component;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,11 @@ class StageNumberDeterminerComponentTest {
 
     @Autowired
     private StageNumberDeterminerComponent stageNumberDeterminerComponent;
+
+    @BeforeEach
+    public void setup() {
+        stageNumberDeterminerComponent.setPathToCsvFile("src/test/resources/GranTourDatesAndStages2023Test.csv");
+    }
 
     @Test
     void determineLatestStage_03March() {

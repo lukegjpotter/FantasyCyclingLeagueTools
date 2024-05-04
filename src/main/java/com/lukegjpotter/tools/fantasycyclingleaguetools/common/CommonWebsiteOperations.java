@@ -131,7 +131,7 @@ public class CommonWebsiteOperations {
         }
 
         // Clarify riders with the same surnames.
-        List<String> surnamesNeedingClarification = List.of("Yates", "Izagirre", "van den Berg");
+        List<String> surnamesNeedingClarification = List.of("Yates", "Izagirre", "van den Berg", "Paret-Peintre");
         if (surnamesNeedingClarification.contains(surname)) firstName = riderFullName.charAt(0) + ".";
 
         String riderFormattedName = (firstName + " " + surname).trim();
