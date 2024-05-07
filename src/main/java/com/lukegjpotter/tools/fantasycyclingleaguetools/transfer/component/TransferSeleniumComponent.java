@@ -118,7 +118,9 @@ public class TransferSeleniumComponent {
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
-                if (stage.equalsIgnoreCase(todaysStageNumber)) {
+                // fixme need to look at the WebDriverWait.
+                //stage = new StringBuilder(stage).deleteCharAt(stage.length() - 1).toString();
+                if (stage.equalsIgnoreCase(todaysStageNumber + ".")) {
                     String riderOut = commonWebsiteOperations.formatRiderName(transferFields.get(4).getText().trim());
                     String riderIn = commonWebsiteOperations.formatRiderName(transferFields.get(3).getText().trim());
                     String transferAsText = riderOut + " -> " + riderIn;
