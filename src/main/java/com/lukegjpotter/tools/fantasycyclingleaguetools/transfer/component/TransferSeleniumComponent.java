@@ -88,12 +88,12 @@ public class TransferSeleniumComponent {
             // Avoids a Stale Element issue.
             transfersWebDriver.findElement(By.className("leagues")).findElements(By.tagName("a")).get(anchorTagsIndex).click();
 
-            // Expand Transfers
+            // Expand Transfers and read Transfers Table.
+            transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.tagName("a")).click();
             WebDriverWait transferTableWait = new WebDriverWait(transfersWebDriver, Duration.ofSeconds(10));
             By xpathUserTransfersLeaguesTable = By.xpath("//div[@class=\"usertransfers\"]//table[@class=\"leagues\"]");
-            transferTableWait.until(ExpectedConditions.presenceOfElementLocated(xpathUserTransfersLeaguesTable));
-            transfersWebDriver.findElement(By.className("usertransfers")).findElement(By.tagName("a")).click();
-            List<WebElement> transferTableRows = transfersWebDriver.findElement(xpathUserTransfersLeaguesTable).findElements(By.tagName("tr"));
+            WebElement transfersTableWebElement = transferTableWait.until(ExpectedConditions.visibilityOfElementLocated(xpathUserTransfersLeaguesTable));
+            List<WebElement> transferTableRows = transfersTableWebElement.findElements(By.tagName("tr"));
 
             // Remove the Table Headers.
             transferTableRows.remove(0);
@@ -118,8 +118,7 @@ public class TransferSeleniumComponent {
             for (WebElement transferTableRow : transferTableRows) {
                 List<WebElement> transferFields = transferTableRow.findElements(By.tagName("td"));
                 String stage = transferFields.get(1).getText().trim();
-                // fixme need to look at the WebDriverWait.
-                //stage = new StringBuilder(stage).deleteCharAt(stage.length() - 1).toString();
+
                 if (stage.equalsIgnoreCase(todaysStageNumber + ".")) {
                     String riderOut = commonWebsiteOperations.formatRiderName(transferFields.get(4).getText().trim());
                     String riderIn = commonWebsiteOperations.formatRiderName(transferFields.get(3).getText().trim());
