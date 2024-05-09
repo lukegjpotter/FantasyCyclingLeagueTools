@@ -59,13 +59,17 @@ public class StandingSeleniumComponent {
 
             // Open Popup, wait for it to load, read the Score, Close Popup
             standingsTableFields.get(2).findElement(By.tagName("a")).click();
-            WebElement stageResultsClose = new WebDriverWait(standingsWebDriver, Duration.ofMillis(2000)).until(
-                    ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
+            WebDriverWait stageResultsCloseWebDriverWait = new WebDriverWait(standingsWebDriver, Duration.ofSeconds(10));
+            WebElement stageResultsClose = stageResultsCloseWebDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[2]/div[3]/a")));
+
             String todaysScore = stageResultsClose.findElement(By.xpath("/html/body/div[2]/div[4]/div/table/tbody/tr[10]/th[2]")).getText().trim();
+
             if (stageNumber == 0) {
                 String teamRaceandStageNumber = stageResultsClose.findElement(By.xpath("//*[@id=\"overlay\"]/div[1]/h3")).getText().trim();
-                stageNumber = Integer.parseInt(teamRaceandStageNumber.substring(teamRaceandStageNumber.lastIndexOf(" ") + 1));
+                stageNumber = Integer.parseInt(teamRaceandStageNumber.substring(teamRaceandStageNumber.lastIndexOf(" ") + 1, teamRaceandStageNumber.lastIndexOf(".")));
             }
+
+            // Close Popup
             stageResultsClose.click();
 
             String leaguePosition = standingsTableFields.get(0).getText().trim();
