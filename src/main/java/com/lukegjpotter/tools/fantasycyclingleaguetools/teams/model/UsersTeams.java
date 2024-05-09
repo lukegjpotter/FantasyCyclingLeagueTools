@@ -17,7 +17,7 @@ public class UsersTeams {
 
     private List<List<String>> usersTeams;
     private static final String TRANSFER_SIGNAL = "tx->";
-    private String htmlEncodedSpace = "&nbsp;";
+    private final String htmlEncodedSpace = "&nbsp;";
 
     private final Logger logger = LoggerFactory.getLogger(UsersTeams.class);
 
@@ -86,7 +86,7 @@ public class UsersTeams {
         // Usernames - header row
         output.append("<tr>");
         for (String username : getUsernames()) {
-            output.append("<th>").append(username).append("</th>");
+            output.append("<th width=\"100px\">").append(username).append("</th>");
         }
         output.append("</tr>");
 
@@ -99,10 +99,10 @@ public class UsersTeams {
 
         for (int riderPos = 1; riderPos < maxSizeOfTeam; riderPos++) {
             output.append("<tr>");
-            for (int teamPos = 0; teamPos < usersTeams.size(); teamPos++) {
-                String riderName = "";
+            for (List<String> usersTeam : usersTeams) {
+                String riderName;
                 try {
-                    riderName = usersTeams.get(teamPos).get(riderPos);
+                    riderName = usersTeam.get(riderPos);
                 } catch (IndexOutOfBoundsException ioobException) {
                     // No need to do anything, as riderName is already empty;
                     riderName = htmlEncodedSpace;

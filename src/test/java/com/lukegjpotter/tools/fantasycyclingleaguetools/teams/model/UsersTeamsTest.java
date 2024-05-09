@@ -81,7 +81,7 @@ class UsersTeamsTest {
         usersTeams.addUser("user2");
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th></tr>" +
                 "<tr><td>1-rider1</td><td>&nbsp;</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
@@ -96,7 +96,7 @@ class UsersTeamsTest {
         usersTeams.addRidertoUsersTeam("user2", "2-rider1");
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th></tr>" +
                 "<tr><td>&nbsp;</td><td>2-rider1</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
@@ -111,7 +111,7 @@ class UsersTeamsTest {
         usersTeams.addRidertoUsersTeam("user1", "1-rider1");
 
         String expected = "<table>" +
-                "<tr><th>user1</th></tr>" +
+                "<tr><th width=\"100px\">user1</th></tr>" +
                 "<tr><td>1-rider1</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
@@ -129,7 +129,7 @@ class UsersTeamsTest {
         usersTeams.addRidertoUsersTeam("user2", "2-rider2");
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th></tr>" +
                 "<tr><td>1-rider1</td><td>2-rider1</td></tr>" +
                 "<tr><td>1-rider2</td><td>2-rider2</td></tr>" +
                 "</table>";
@@ -154,7 +154,7 @@ class UsersTeamsTest {
         usersTeams.addRidertoUsersTeam("user3", "3-rider3");
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th><th width=\"100px\">user3</th></tr>" +
                 "<tr><td>1-rider1</td><td>2-rider1</td><td>3-rider1</td></tr>" +
                 "<tr><td>1-rider2</td><td>2-rider2</td><td>3-rider2</td></tr>" +
                 "<tr><td>1-rider3</td><td>2-rider3</td><td>3-rider3</td></tr>" +
@@ -171,7 +171,7 @@ class UsersTeamsTest {
         usersTeams.replaceRiderForUsersTeam("user1", "1-rider1", "newrider");
 
         String expected = "<table>" +
-                "<tr><th>user1</th></tr>" +
+                "<tr><th width=\"100px\">user1</th></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">newrider</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
@@ -193,7 +193,7 @@ class UsersTeamsTest {
 
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th></tr>" +
                 "<tr><td>1-rider1</td><td bgcolor=\"#D7BDE2\">2-newrider1</td></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">1-newrider2</td><td>2-rider2</td></tr>" +
                 "</table>";
@@ -209,7 +209,7 @@ class UsersTeamsTest {
         usersTeams.replaceRiderForUsersTeam("Usery McUserFace", "1-rider1", "newrider");
 
         String expected = "<table>" +
-                "<tr><th>Usery McUserFace</th></tr>" +
+                "<tr><th width=\"100px\">Usery McUserFace</th></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">newrider</td></tr>" +
                 "</table>";
         String actual = usersTeams.toString();
@@ -234,7 +234,7 @@ class UsersTeamsTest {
         usersTeams.alignTeams();
 
         String expected = "<table>" +
-                "<tr><th>Usery McUserFace</th></tr>" +
+                "<tr><th width=\"100px\">Usery McUserFace</th></tr>" +
                 "<tr><td>1-rider1</td></tr>" +
                 "</table>";
 
@@ -254,7 +254,7 @@ class UsersTeamsTest {
         usersTeams.alignTeams();
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th></tr>" +
                 "<tr><td>common</td><td>common</td></tr>" +
                 "<tr><td>1-uncommon</td><td>2-uncommon</td></tr>" +
                 "</table>";
@@ -287,7 +287,7 @@ class UsersTeamsTest {
         usersTeams.alignTeams();
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th><th width=\"100px\">user3</th></tr>" +
                 "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
                 "<tr><td>Jai</td><td>&nbsp;</td><td>Jai</td></tr>" +
                 "<tr><td>Mas</td><td>Mas</td><td>&nbsp;</td></tr>" +
@@ -329,7 +329,7 @@ class UsersTeamsTest {
         usersTeams.alignTeams();
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th><th width=\"100px\">user3</th></tr>" +
                 "<tr><td>Jai</td><td bgcolor=\"#D7BDE2\">Jai</td><td>Jai</td></tr>" +
                 "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td>&nbsp;</td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +
@@ -372,7 +372,7 @@ class UsersTeamsTest {
         usersTeams.alignTeams();
 
         String expected = "<table>" +
-                "<tr><th>user1</th><th>user2</th><th>user3</th></tr>" +
+                "<tr><th width=\"100px\">user1</th><th width=\"100px\">user2</th><th width=\"100px\">user3</th></tr>" +
                 "<tr><td>Jai</td><td bgcolor=\"#D7BDE2\">Jai</td><td>Jai</td></tr>" +
                 "<tr><td>Roglic</td><td>Roglic</td><td>Roglic</td></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">Carthy</td><td>&nbsp;</td><td bgcolor=\"#D7BDE2\">Carthy</td></tr>" +

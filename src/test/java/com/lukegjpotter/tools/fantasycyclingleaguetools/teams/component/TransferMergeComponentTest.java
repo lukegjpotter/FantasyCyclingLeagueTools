@@ -42,7 +42,7 @@ class TransferMergeComponentTest {
                 "</p></body></html>";
 
         String expected = "<table>" +
-                "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
+                "<tr><th width=\"100px\">Sean</th><th width=\"100px\">Kay</th><th width=\"100px\">Luke</th></tr>" +
                 "<tr><td>Roglic</td><td bgcolor=\"#D7BDE2\">Yates</td><td bgcolor=\"#D7BDE2\">Evenepoel</td></tr>" +
                 "<tr><td>Alaphilippe</td><td bgcolor=\"#D7BDE2\">De Gendt</td><td bgcolor=\"#D7BDE2\">Herrada</td></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">Lutsenko</td><td>Hayter</td><td bgcolor=\"#D7BDE2\">Alaphilippe</td></tr>" +
@@ -75,7 +75,7 @@ class TransferMergeComponentTest {
                 "</p></body></html>";
 
         String expected = "<table>" +
-                "<tr><th>Sean</th><th>Kay</th><th>Luke</th></tr>" +
+                "<tr><th width=\"100px\">Sean</th><th width=\"100px\">Kay</th><th width=\"100px\">Luke</th></tr>" +
                 "<tr><td>Roglic</td><td>Yates</td><td>Evenepoel</td></tr>" +
                 "<tr><td>Alaphilippe</td><td>De Gendt</td><td>Herrada</td></tr>" +
                 "<tr><td>Lutsenko</td><td>Hayter</td><td>Alaphilippe</td></tr>" +
@@ -108,7 +108,7 @@ class TransferMergeComponentTest {
                 "</p></body></html>";
 
         String expected = "<table>" +
-                "<tr><th>Sean</th><th>Kay McKay</th><th>Luke</th></tr>" +
+                "<tr><th width=\"100px\">Sean</th><th width=\"100px\">Kay McKay</th><th width=\"100px\">Luke</th></tr>" +
                 "<tr><td>Roglic</td><td bgcolor=\"#D7BDE2\">Yates</td><td bgcolor=\"#D7BDE2\">Evenepoel</td></tr>" +
                 "<tr><td>Alaphilippe</td><td bgcolor=\"#D7BDE2\">De Gendt</td><td bgcolor=\"#D7BDE2\">Herrada</td></tr>" +
                 "<tr><td bgcolor=\"#D7BDE2\">Lutsenko</td><td>Hayter</td><td bgcolor=\"#D7BDE2\">Alaphilippe</td></tr>" +
