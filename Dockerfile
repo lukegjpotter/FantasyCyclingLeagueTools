@@ -20,8 +20,8 @@ RUN gradle clean build -x test
 # Use a JDK runtime as a parent image.
 FROM eclipse-temurin:17-jdk-alpine AS runstage
 ENV APP_HOME=/app
-# Add Chromium Browser for Selenium and WebDriverManager to use.
-RUN apk add chromium
+# Add Chromium Browser for Selenium and WebDriverManager to use. FixMe: chromedriver is still downloaded by Boni Garcia
+RUN apk add chromium chromium-chromedriver
 # The startup uses this Environmental Variable to decide between Chrome (on local) and Chromium (on Docker).
 ENV IS_FANTASY_CYCLING_TOOLS_ON_DOCKER="true"
 # Create a Volume to persist the JAR file. ToDo: possibly remove this.

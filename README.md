@@ -60,7 +60,7 @@ Then executing
 
 or with Docker:
 
-    docker build -t fantasy-cycling-tools:latest .
+    docker build --pull -t fantasy-cycling-tools:latest .
     
     docker run --name fantasy_cycling \
       -p 8080:8080 \
