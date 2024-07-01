@@ -30,11 +30,19 @@ Records. This is a pending action.
 
 ### Download "Chrome For Testing" Browser
 
-Since Chrome version 115 (late-July 2023), there is a new Browser, Chrome for Testing, that the July 2023 releases of
+Since Chrome version 115 (late-July 2023), there is a new Browser, "Chrome for Testing", that the July 2023 releases of
 Selenium and WebDriverManager look for.
 
 This can be downloaded via Puppet, or from the Website
 [Chrome for Testing Releases](https://googlechromelabs.github.io/chrome-for-testing/).
+
+On MacOS, you should try to open the newly downloaded Chrome for Testing, to ensure that the security will allow it to
+be opened. If you are presented with a Security Message, not allowing it to be run, open System Settings -> Privacy and
+Security -> Open Anyway. You will also be presented with a message asking you to Sign In to Chromium, which you can
+dismiss.
+
+You can set the version of Chrome for Testing that you have downloaded, in the
+`src/main/resources/application.properties` file. The `version.chromefortesting` property takes a string.
 
 ### Terminal or CLI
 
@@ -53,6 +61,7 @@ Then executing
 or with Docker:
 
     docker build -t fantasy-cycling-tools:latest .
+    
     docker run --name fantasy_cycling \
       -p 8080:8080 \
       --env=ROADCC_USERNAME='yourUsername' \
@@ -71,10 +80,12 @@ You can run this in your IDE by adding the Environment Variables to your Run Con
 
 ### Cloud Hosting Service
 
-Heroku and Render are supported. The Environment Variables are supplied in the relevant Config Files.
+[comment]: <> (FixMe: Render support is not working.)
+Heroku is supported. Render is a Work in Progress. The Environment Variables are supplied in the relevant Config Files.
 
 ### How To Test
 
+[comment]: <> (FixMe: JSON format is no longer supported in PostMan, use a standard collection instead.)
 PostMan Collection: [JSON Format](https://www.getpostman.com/collections/6f8d705afefeb67c6aa8).
 
 Swagger UI is Enabled: [Localhost](http://localhost:8080/swagger-ui/index.html).

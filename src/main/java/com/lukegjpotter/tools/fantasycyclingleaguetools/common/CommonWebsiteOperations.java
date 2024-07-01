@@ -137,8 +137,8 @@ public class CommonWebsiteOperations {
         String riderFormattedName = (firstName + " " + surname).trim();
 
         // Substitute Rider Nicknames
-        List<String> riderBaseName = List.of("Pidcock", "van der Poel", "Van Aert", "Pogacar", "Vingegaard", "Kwiatkowski", "Pinot", "Evenepoel");
-        List<String> riderNickName = List.of("Pisscock", "MVDP", "WVA", "Poggy", "Jonas", "Kwaito", "TiboPinot", "Remco");
+        List<String> riderBaseName = List.of("Pidcock", "van der Poel", "Van Aert", "Pogacar", "Vingegaard", "Kwiatkowski", "Pinot", "Evenepoel", "Gachignard", "Matthews");
+        List<String> riderNickName = List.of("Pisscock", "MVDP", "WVA", "Poggy", "Jonas", "Kwaito", "TiboPinot", "Remco", "GotchyaGar", "Bling");
         int indexOfNickName = riderBaseName.indexOf(riderFormattedName);
         if (indexOfNickName >= 0) return riderNickName.get(indexOfNickName);
 

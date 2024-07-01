@@ -98,6 +98,8 @@ public class TransferSeleniumComponent {
             // Remove the Table Headers.
             transferTableRows.remove(0);
 
+            // FixMe: Transfers are being Flakey.
+            
             /* Determine Total Transfers Used. This loop, rather than just the table.size(), is used, in the case that
              * there might be transfers related to another competition in the list. */
             int totalUsedTransfers = 0;

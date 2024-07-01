@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,9 @@ import static java.util.Optional.ofNullable;
 public class FantasyCyclingLeagueToolsApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(FantasyCyclingLeagueToolsApplication.class);
+
+    @Value("${version.chromefortesting}")
+    private final String chromeForTestingVersion = "126.0.6478.126";
 
     @Autowired
     private Environment env;
@@ -50,7 +54,8 @@ public class FantasyCyclingLeagueToolsApplication {
             WebDriverManager.chromiumdriver().setup();
         } else {
             logger.info("Using Chrome on supported Operating System.");
-            WebDriverManager.chromedriver().driverVersion("115.0.5790.102").setup();
+            logger.trace("Chrome for Testing property version: {}", chromeForTestingVersion);
+            WebDriverManager.chromedriver().driverVersion(chromeForTestingVersion).setup();
         }
     }
 

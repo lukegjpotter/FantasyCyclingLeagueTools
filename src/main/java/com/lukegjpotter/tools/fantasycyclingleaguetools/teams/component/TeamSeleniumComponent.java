@@ -88,9 +88,9 @@ public class TeamSeleniumComponent {
 
             // Open Popup, wait for it to load, read the Score, Close Popup
             standingsTableFields.get(2).findElement(By.tagName("a")).click();
-            WebElement stageResultsClose = new WebDriverWait(determineTeamsWebDriver, Duration.ofMillis(2000))
+            WebElement stageResultsClose = new WebDriverWait(determineTeamsWebDriver, Duration.ofMillis(5000))
                     .until(ExpectedConditions.elementToBeClickable(
-                            By.xpath("/html/body/div[2]/div[3]/a")));
+                            By.id("overlay-hide")));
 
             for (int i = 2; i <= 9; i++) {
                 String riderFullName = stageResultsClose.findElement(
