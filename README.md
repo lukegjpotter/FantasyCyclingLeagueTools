@@ -56,18 +56,20 @@ This project uses port 8080 by default, so ensure that it's free when you're try
 Then executing
 
     source setEnvironmentalVariables.sh
-    ./gradlew build bootRun
+    ./gradlew clean build bootRun
 
 or with Docker:
 
     docker build --pull -t fantasy-cycling-tools:latest .
     
-    docker run --name fantasy_cycling \
+    docker run --name fantasy-cycling \
       -p 8080:8080 \
       --env=ROADCC_USERNAME='yourUsername' \
       --env=ROADCC_PASSWORD='yourPassword' \
       --env=ROADCC_LEAGUE_NAME='Your League Name' \
       -d --rm fantasy-cycling-tools:latest
+    
+    docker container stop fantasy-cycling
 
 ### IDE
 

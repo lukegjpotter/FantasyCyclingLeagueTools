@@ -3,7 +3,7 @@
 # Build stage
 #
 # Use Gradle runtime as a parent image. Gradle Deamon still takes time to start.
-FROM gradle:8.8-jdk17-alpine AS buildstage
+FROM gradle:8.14-jdk17-alpine AS buildstage
 ENV APP_HOME=/app
 # Set the working directory to /app.
 WORKDIR $APP_HOME
